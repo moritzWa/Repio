@@ -58,7 +58,6 @@ const ItemForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="text-primary">{current ? "Edit Item" : "Add Item"}</h2>
       <input
         type="text"
         placeholder="Name"

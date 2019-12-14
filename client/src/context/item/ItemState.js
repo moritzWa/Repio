@@ -20,7 +20,8 @@ const ItemState = props => {
     items: null,
     current: null,
     filtered: null,
-    error: null
+    error: null,
+    filteredItems: null
   }
 
   const [state, dispatch] = useReducer(itemReducer, initialState)
@@ -89,14 +90,28 @@ const ItemState = props => {
           }) */
         r => (
           (r.isDone = i.doneNum >= r.Nr ? true : false),
-          (r.date = addDays(i.date, r.distence)),
-          console.log(r.distence)
+          (r.date = addDays(i.date, r.distence))
         )
       )
     )
   }
 
-  console.log(state.items)
+  //get distence of overdo rep
+  const createOverDoDays = item => {
+    let overDoReps = item.reps.filter(rep => {
+      if (!rep.isDone && rep.date < new Date()) {
+        return rep //evtl inline?
+      }
+    })
+    if (overDoReps.length > 0) {
+      let overDoDays = Math.floor(
+        (overDoReps[0].date - new Date()) / (1000 * 3600 * 24) + 1
+      )
+      return overDoDays
+    } else return 0
+  }
+
+  //======================= API CRUD =========================//
 
   // Add Item
   const addItem = async item => {
@@ -186,6 +201,29 @@ const ItemState = props => {
     dispatch({ type: CLEAR_FILTER })
   }
 
+  //======================= Filter for ToReview Locic =========================//
+
+  //finnd item that has overdo reps
+  const filterOverDoItems = items => {
+    let filteredArray = []
+    items.forEach(element => {
+      element.reps.forEach(rep => {
+        if (
+          !rep.isDone &&
+          rep.date < new Date() &&
+          !filteredArray.includes(element)
+        ) {
+          filteredArray.push(element)
+        }
+      })
+    })
+    return filteredArray //returns items
+  }
+
+  if (state.items !== null) {
+    state.filteredItems = filterOverDoItems(state.items)
+  }
+
   return (
     <ItemContext.Provider
       value={{
@@ -193,6 +231,7 @@ const ItemState = props => {
         current: state.current,
         filtered: state.filtered,
         error: state.error,
+        filteredItems: state.filteredItems,
         addItem,
         deleteItem,
         setCurrent,
