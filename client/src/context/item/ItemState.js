@@ -42,8 +42,65 @@ const ItemState = props => {
     }
   }
 
+  // Expand item Information
+  if (state.items !== null) {
+    //Interval info
+    state.items.map(i =>
+      i.interval === "Longterm"
+        ? (i.interval = {
+            value: [1, 7, 14, 28, 56, 112, 224, 448],
+            label: "Longterm"
+          })
+        : (i.interval = {
+            value: [1, 4, 7, 10, 14, 21, 28, 38],
+            label: "Shortterm"
+          })
+    )
+
+    //Reps info
+
+    //setup structure logic
+    const createRepsStructure = usedInterval => {
+      let repsArrayStructure = []
+
+      for (let i = 0; i < usedInterval.length; i++) {
+        repsArrayStructure.push({ Nr: i + 1, distence: usedInterval[i] })
+      }
+      return repsArrayStructure
+    }
+
+    //setup addDays Logic
+    const addDays = (date, days) => {
+      let result = new Date(date)
+      result.setDate(result.getDate() + days)
+      return result
+    }
+
+    //fill structure
+    state.items.map(i => (i.reps = createRepsStructure(i.interval.value)))
+
+    state.items.map(i =>
+      i.reps.map(
+        /* r =>
+          (r = {
+            ...r,
+            isDone: i.doneNum >= r.Nr ? true : false,
+            date: addDays(i.date, r.distence)
+          }) */
+        r => (
+          (r.isDone = i.doneNum >= r.Nr ? true : false),
+          (r.date = addDays(i.date, r.distence)),
+          console.log(r.distence)
+        )
+      )
+    )
+  }
+
+  console.log(state.items)
+
   // Add Item
   const addItem = async item => {
+    //compute reps
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -89,7 +146,6 @@ const ItemState = props => {
         "Content-Type": "application/json"
       }
     }
-
     try {
       const res = await axios.put(`/api/items/${item._id}`, item, config)
 

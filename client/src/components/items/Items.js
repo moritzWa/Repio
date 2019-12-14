@@ -18,6 +18,8 @@ const Items = () => {
     return <h4>Please add a item</h4>
   }
 
+  console.log(items)
+
   return (
     <Fragment>
       {items !== null && !loading ? (
