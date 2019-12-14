@@ -11,6 +11,8 @@ import PrivateRoute from "./components/routing/PrivateRoute"
 import ItemState from "./context/item/ItemState"
 import AuthState from "./context/auth/AuthState"
 import AlertState from "./context/alert/AlertState"
+import IntervalState from "./context/interval/IntervalState"
+
 import "./App.css"
 
 const App = () => {
@@ -18,20 +20,22 @@ const App = () => {
     <AuthState>
       <ItemState>
         <AlertState>
-          <Router>
-            <Fragment>
-              <Navbar />
-              <div className="container">
-                <Alerts />
-                <Switch>
-                  <PrivateRoute exact path="/" component={Home} />
-                  <Route exact path="/about" component={About} />
-                  <Route exact path="/register" component={Register} />
-                  <Route exact path="/login" component={Login} />
-                </Switch>
-              </div>
-            </Fragment>
-          </Router>
+          <IntervalState>
+            <Router>
+              <Fragment>
+                <Navbar />
+                <div className="container">
+                  <Alerts />
+                  <Switch>
+                    <PrivateRoute exact path="/" component={Home} />
+                    <Route exact path="/about" component={About} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/login" component={Login} />
+                  </Switch>
+                </div>
+              </Fragment>
+            </Router>
+          </IntervalState>
         </AlertState>
       </ItemState>
     </AuthState>

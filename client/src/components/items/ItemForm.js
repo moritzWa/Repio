@@ -6,11 +6,13 @@ const ItemForm = () => {
 
   const { addItem, updateItem, clearCurrent, current } = itemContext
 
+  const defaultInterval = "Longterm"
+
   const empty = {
     name: "",
     date: null,
     doneNum: 0,
-    interval: "teststring",
+    interval: defaultInterval,
     category: "personal"
   }
 
@@ -63,6 +65,7 @@ const ItemForm = () => {
         name="name"
         value={name}
         onChange={onChange}
+        required
       />
       <input
         type="number"
@@ -78,9 +81,9 @@ const ItemForm = () => {
         value={formatDate(!date ? new Date() : date)}
         onChange={onChange}
       />
-      <select name="interval">
-        <option value="longterm">Longterm</option>
-        <option value="lhortterm">Shortterm</option>
+      <select name="interval" value={interval} onChange={onChange}>
+        <option value="Longterm">Longterm</option>
+        <option value="Shortterm">Shortterm</option>
       </select>
       <h5>Item category</h5>
       <input
@@ -89,7 +92,7 @@ const ItemForm = () => {
         value="personal"
         checked={category === "personal"}
         onChange={onChange}
-      />{" "}
+      />
       Personal{" "}
       <input
         type="radio"

@@ -1,10 +1,14 @@
 import React, { useContext } from "react"
 import PropTypes from "prop-types"
 import ItemContext from "../../context/item/itemContext"
+import IntervalContext from "../../context/interval/intervalContext"
 
 const ItemItem = ({ item }) => {
   const itemContext = useContext(ItemContext)
+  const intervalContext = useContext(IntervalContext)
+
   const { deleteItem, setCurrent, clearCurrent } = itemContext
+  const { computeDays } = intervalContext
 
   const { _id, name, date, doneNum, interval, category } = item
 
@@ -15,21 +19,12 @@ const ItemItem = ({ item }) => {
 
   return (
     <div className="card bg-light">
-      <h3 className="text-primary text-left">
-        {name}{" "}
-        <span
-          style={{ float: "right" }}
-          className={
-            "badge " +
-            (category === "professional" ? "badge-success" : "badge-primary")
-          }
-        >
-          {category.charAt(0).toUpperCase() + category.slice(1)}
-        </span>
-      </h3>
+      <ul className="list">{name && <li>{name}</li>}</ul>
+      <ul className="list">{category && <li>{category}</li>}</ul>
       <ul className="list">{date && <li>{date}</li>}</ul>
       <ul className="list">{doneNum && <li>{doneNum}</li>}</ul>
-      <ul className="list">{interval && <li>{interval}</li>}</ul>
+      <ul className="list">{interval.label && <li>{interval.label}</li>}</ul>
+      <ul className="list">{interval.value && <li>{interval.value}</li>}</ul>
 
       <p>
         <button

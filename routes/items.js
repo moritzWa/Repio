@@ -73,7 +73,7 @@ router.put("/:id", auth, async (req, res) => {
   if (name) itemFields.name = name
   if (date) itemFields.date = date
   if (doneNum) itemFields.doneNum = doneNum
-  if (interval) itemFields.interval = interval
+  if (interval.label) itemFields.interval = interval.label
   if (category) itemFields.category = category
 
   try {
@@ -94,7 +94,7 @@ router.put("/:id", auth, async (req, res) => {
 
     res.json(item)
   } catch (err) {
-    console.error(er.message)
+    console.error(err.message)
     res.status(500).send("Server Error")
   }
 })
