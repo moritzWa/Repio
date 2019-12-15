@@ -17,7 +17,7 @@ import Spinner from "../layout/Spinner"
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    overflowX: "auto"
+    overflow: "auto"
   },
   table: {
     minWidth: 500
@@ -46,65 +46,68 @@ const ToReviewList = () => {
     deleteItem,
     clearCurrent,
     getItems,
-    loading
+    loading,
+    incrementDoneNum
   } = itemContext
 
   return (
     <>
       {items !== null ? (
-        <Paper className={classes.root}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  className={classes.headCell}
-                  //onClick={() => props.sort("name")}
-                >
-                  Name
-                </TableCell>
-                <TableCell
-                  className={classes.headCell}
-                  // onClick={() => props.sort("overDoDays")}
-                >
-                  Overdo since
-                </TableCell>
-                <TableCell
-                  className={classes.headCell}
-                  //onClick={() => props.sort("category")}
-                >
-                  Category
-                </TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredItems.length > 0 ? (
-                filteredItems.map(item => (
-                  <TableRow key={item.name}>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.overDoDays}</TableCell>
-                    <TableCell>{item.category}</TableCell>
-                    <TableCell>
-                      <IconButton
-                        //onClick={() => props.setItemAsDone(item.id)}
-                        color="primary"
-                        className={classes.button}
-                        aria-label="Review done"
-                      >
-                        <CheckIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
+        <Paper elevation={0} className={classes.root}>
+          {filteredItems.length > 0 ? (
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
                 <TableRow>
-                  <Typography className={classes.doneText}>
-                    You dont have any repios left. Nice.
-                  </Typography>
+                  <TableCell
+                    className={classes.headCell}
+                    //onClick={() => props.sort("name")}
+                  >
+                    Name
+                  </TableCell>
+                  <TableCell
+                    className={classes.headCell}
+                    // onClick={() => props.sort("overDoDays")}
+                  >
+                    Overdo since
+                  </TableCell>
+                  <TableCell
+                    className={classes.headCell}
+                    //onClick={() => props.sort("category")}
+                  >
+                    Category
+                  </TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {filteredItems.length > 0 ? (
+                  filteredItems.map(item => (
+                    <TableRow key={item.name}>
+                      <TableCell>{item.name}</TableCell>
+                      <TableCell>{item.overDoDays}</TableCell>
+                      <TableCell>{item.category}</TableCell>
+                      <TableCell>
+                        <IconButton
+                          onClick={() => incrementDoneNum(item)}
+                          color="primary"
+                          className={classes.button}
+                          aria-label="Review done"
+                        >
+                          <CheckIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow></TableRow>
+                )}
+              </TableBody>
+            </Table>
+          ) : (
+            <Typography className={classes.doneText} variant="h5">
+              No items left for today 😊{" "}
+            </Typography>
+          )}
         </Paper>
       ) : (
         <Spinner />
