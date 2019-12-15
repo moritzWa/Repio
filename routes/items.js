@@ -62,6 +62,46 @@ router.post(
   }
 )
 
+// @route     PUT api/items/increment/:id
+// @desc      Increment DoneNum
+// @access    Private
+router.put("/increment/:id", auth, async (req, res) => {
+  const { name, date, doneNum, interval, category } = req.body
+
+  const NewDoneNum = Number(doneNum) + 1
+  console.log(NewDoneNum)
+
+  // Build item object
+  const itemFields = {}
+  if (name) itemFields.name = name
+  if (date) itemFields.date = date
+  if (doneNum) itemFields.doneNum = NewDoneNum
+  if (interval.label) itemFields.interval = interval.label
+  if (category) itemFields.category = category
+
+  try {
+    let item = await Item.findById(req.params.id)
+
+    if (!item) return res.status(404).json({ msg: "Item not found" })
+
+    // Make sure user owns item
+    if (item.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not authorized" })
+    }
+
+    item = await Item.findByIdAndUpdate(
+      req.params.id,
+      { $set: itemFields },
+      { new: true }
+    )
+
+    res.json(item)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send("Server Error")
+  }
+})
+
 // @route     PUT api/items/:id
 // @desc      Update item
 // @access    Private

@@ -34,7 +34,7 @@ import Spinner from "../layout/Spinner"
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    overflowX: "auto"
+    overflow: "auto"
   },
   expansion: {
     border: "none",

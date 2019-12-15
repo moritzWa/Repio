@@ -37,12 +37,12 @@ ul {
 }
 
 /* Utilities */
-.container {
+/* .container {
   max-width: 1100px;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-}
+} */
 
 /* Text Styles*/
 .x-large {
@@ -90,20 +90,20 @@ ul {
 .card {
   padding: 1rem;
   border: #ccc 1px dotted;
-  margin: 0.7rem 0;
-}
+/*   margin: 0.7rem 0;
+ */}
 
 /* List */
 .list {
-  margin: 0.5rem 0;
-}
+/*   margin: 0.5rem 0;
+ */}
 
 .list li {
   padding-bottom: 0.3rem;
 }
 
 /* Padding */
-.p {
+/* .p {
   padding: 0.5rem;
 }
 .p-1 {
@@ -126,10 +126,10 @@ ul {
 }
 .py-3 {
   padding: 3rem 0;
-}
+} */
 
 /* Margin */
-.m {
+/* .m {
   margin: 0.5rem;
 }
 .m-1 {
@@ -152,10 +152,10 @@ ul {
 }
 .my-3 {
   margin: 3rem 0;
-}
+} */
 
 /* Grid */
-.grid-2 {
+/* .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 2rem;
@@ -177,7 +177,7 @@ ul {
   display: grid;
   grid-template-columns: 2fr 3fr;
   grid-gap: 2rem;
-}
+} */
 
 .btn {
   display: inline-block;
@@ -187,8 +187,8 @@ ul {
   font-size: 1rem;
   border: none;
   cursor: pointer;
-  margin-right: 0.5rem;
-  transition: opacity 0.2s ease-in;
+/*   margin-right: 0.5rem;
+ */  transition: opacity 0.2s ease-in;
   outline: none;
 }
 
@@ -310,7 +310,7 @@ textarea {
   display: block;
   width: 100%;
   padding: 0.4rem;
-  font-size: 1.2rem;
+  font-size: .8rem;
   border: 1px solid #ccc;
   border-radius: 7px;
 }
@@ -330,8 +330,8 @@ button {
 }
 
 .form-container {
-  max-width: 500px;
-  margin: 2rem auto;
+/*   max-width: 500px;
+ */  margin: 2rem auto;
   overflow: hidden;
   padding: 0 2rem;
 }
@@ -344,7 +344,6 @@ h3 {
 
 table th,
 table td {
-  padding: 1rem;
   text-align: left;
 }
 
@@ -401,39 +400,3 @@ table th {
   transition: opacity 1000ms ease-in;
 }
 
-/* Mobile Styles */
-@media (max-width: 700px) {
-  .hide-sm {
-    display: none;
-  }
-
-  .grid-2,
-  .grid-3,
-  .grid-4 {
-    grid-template-columns: 1fr;
-  }
-
-  /* Text Styles */
-  .x-large {
-    font-size: 3rem;
-  }
-
-  .large {
-    font-size: 2rem;
-  }
-
-  .lead {
-    font-size: 1rem;
-  }
-
-  /* Navbar */
-  .navbar {
-  }
-
-  .navbar h1 {
-  }
-
-  .navbar ul {
-    justify-content: center;
-  }
-}

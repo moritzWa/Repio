@@ -12,7 +12,8 @@ import {
   FILTER_CONTACTS,
   CLEAR_CONTACTS,
   CLEAR_FILTER,
-  CONTACT_ERROR
+  CONTACT_ERROR,
+  UPDATE_CONTACT_DONENUM
 } from "../types"
 
 const ItemState = props => {
@@ -111,6 +112,10 @@ const ItemState = props => {
     } else return 0
   }
 
+  if (state.items !== null) {
+    state.items.map(i => (i.overDoDays = createOverDoDays(i)))
+  }
+
   //======================= API CRUD =========================//
 
   // Add Item
@@ -145,6 +150,39 @@ const ItemState = props => {
       dispatch({
         type: DELETE_CONTACT,
         payload: id
+      })
+    } catch (err) {
+      dispatch({
+        type: CONTACT_ERROR,
+        payload: err.response.msg
+      })
+    }
+  }
+
+  //could shorten this
+  /* const setItemAsDone = item => {
+    item.doneNum = Number(itemInProcess.doneNum) + 1
+    itemInProcess.reps = createRepsData(item)
+  } */
+
+  // Increment DoneNum
+  const incrementDoneNum = async item => {
+    console.log("running incrementing in Item State", item)
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    try {
+      const res = await axios.put(
+        `/api/items/increment/${item._id}`,
+        item,
+        config
+      )
+
+      dispatch({
+        type: UPDATE_CONTACT_DONENUM,
+        payload: res.data
       })
     } catch (err) {
       dispatch({
@@ -237,6 +275,7 @@ const ItemState = props => {
         setCurrent,
         clearCurrent,
         updateItem,
+        incrementDoneNum,
         filterItems,
         clearFilter,
         getItems,

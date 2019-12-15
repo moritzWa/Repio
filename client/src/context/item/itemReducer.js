@@ -8,7 +8,8 @@ import {
   FILTER_CONTACTS,
   CLEAR_FILTER,
   CONTACT_ERROR,
-  CLEAR_CONTACTS
+  CLEAR_CONTACTS,
+  UPDATE_CONTACT_DONENUM
 } from "../types"
 
 export default (state, action) => {
@@ -26,6 +27,7 @@ export default (state, action) => {
         loading: false
       }
     case UPDATE_CONTACT:
+    case UPDATE_CONTACT_DONENUM:
       return {
         ...state,
         items: state.items.map(item =>
@@ -33,6 +35,7 @@ export default (state, action) => {
         ),
         loading: false
       }
+
     case DELETE_CONTACT:
       return {
         ...state,
