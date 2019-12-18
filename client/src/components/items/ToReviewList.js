@@ -22,6 +22,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 500
   },
+  tableHeader:{
+    background: '#f4f4f4'
+  },
   doneText: {
     margin: "2rem",
     textAlign: "center"

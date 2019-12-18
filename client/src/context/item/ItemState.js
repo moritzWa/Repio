@@ -29,6 +29,7 @@ const ItemState = props => {
 
   // Get Items
   const getItems = async () => {
+    console.log("starting getting")
     try {
       const res = await axios.get("/api/items")
 

@@ -8,10 +8,11 @@ import { teal, pink } from "@material-ui/core/colors"
 const theme = createMuiTheme({
   palette: {
     primary: teal,
-    secundary: pink
+    secondary: pink
   },
   typography: {
     root: {
+      fontFamily: "Raleway, Roboto",
       textTransform: "none"
     }
   }
