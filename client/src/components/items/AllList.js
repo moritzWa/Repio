@@ -31,10 +31,23 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import ItemContext from "../../context/item/itemContext"
 import Spinner from "../layout/Spinner"
 
+import * as Scroll from "react-scroll"
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller
+} from "react-scroll"
+
 const useStyles = makeStyles({
   root: {
     width: "100%",
     overflow: "auto"
+  },
+  tableHeader: {
+    background: "#f4f4f4"
   },
   expansion: {
     border: "none",
@@ -59,6 +72,13 @@ const useStyles = makeStyles({
 
 const AllList = props => {
   const classes = useStyles()
+
+  var Scroll = require("react-scroll")
+  var scroll = Scroll.animateScroll
+
+  const scrollToTop = () => {
+    scroll.scrollToTop()
+  }
 
   const itemContext = useContext(ItemContext)
   const {
@@ -92,6 +112,11 @@ const AllList = props => {
 
   {
     console.log(items)
+  }
+
+  const editRow = item => {
+    scrollToTop()
+    setCurrent(item)
   }
 
   return (
@@ -165,7 +190,9 @@ const AllList = props => {
                     <TableCell>{item.category}</TableCell>
                     <TableCell>
                       <IconButton
-                        onClick={() => setCurrent(item)}
+                        onClick={() => {
+                          editRow(item)
+                        }}
                         color="primary"
                         className={classes.button}
                         aria-label="Edit Item"

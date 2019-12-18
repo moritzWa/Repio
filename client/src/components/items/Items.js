@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useEffect } from "react"
 import PropTypes from "prop-types"
+import PhotoCamera from "@material-ui/icons/PhotoCamera"
 
 import { CSSTransition, TransitionGroup } from "react-transition-group"
 import ItemItem from "./ItemItem"
@@ -11,7 +12,7 @@ import ItemContext from "../../context/item/itemContext"
 
 import SwipeableViews from "react-swipeable-views"
 
-import { Typography, Paper, AppBar, Grid } from "@material-ui/core/"
+import { Typography, IconButton, Paper, AppBar, Grid } from "@material-ui/core/"
 import { Toolbar, Tabs, Tab, Box } from "@material-ui/core/"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
 
@@ -112,44 +113,38 @@ const Items = () => {
           <Tab label="All" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-      >
-       <Grid item xs={11} md={10} lg={8}>
-        
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-        >
-          <TabPanel
-            className={classes.paddingTabEl}
-            value={value}
-            index={0}
-            dir={theme.direction}
+      <Grid container justify="center" alignItems="center">
+        <Grid item xs={11} sm={11} md={10} lg={6}>
+          <SwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={value}
           >
-            <ToReviewList
-            /*  filteredItems={filteredItems}
+            <TabPanel
+              className={classes.paddingTabEl}
+              value={value}
+              index={0}
+              dir={theme.direction}
+            >
+              <ToReviewList
+              /*  filteredItems={filteredItems}
               setItemAsDone={setItemAsDone}
               sort={sort} */
-            />
-          </TabPanel>
-          <TabPanel
-            className={classes.paddingTabEl}
-            value={value}
-            index={1}
-            dir={theme.direction}
-          >
-            <AllList
-            /* deleteItem={deleteItem}
+              />
+            </TabPanel>
+            <TabPanel
+              className={classes.paddingTabEl}
+              value={value}
+              index={1}
+              dir={theme.direction}
+            >
+              <AllList
+              /* deleteItem={deleteItem}
           editRow={editRow}
           sort={sort}  */
-            />
-          </TabPanel>
-        </SwipeableViews>
+              />
+            </TabPanel>
+          </SwipeableViews>
         </Grid>
-
       </Grid>
     </Fragment>
   )
