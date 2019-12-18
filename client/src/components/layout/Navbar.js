@@ -90,9 +90,12 @@ const Navbar = ({ title, icon }) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="logo"
+            component={Link}
+            to={"/"}
           >
             <BookIcon />
           </IconButton>
+
           <Typography variant="h6" className={classes.title}>
             Repio
           </Typography>

@@ -1,19 +1,15 @@
 import React, { Fragment, useContext, useEffect } from "react"
 import PropTypes from "prop-types"
-import PhotoCamera from "@material-ui/icons/PhotoCamera"
 
-import { CSSTransition, TransitionGroup } from "react-transition-group"
-import ItemItem from "./ItemItem"
 import AllList from "./AllList"
 import ToReviewList from "./ToReviewList"
 
-import Spinner from "../layout/Spinner"
 import ItemContext from "../../context/item/itemContext"
 
 import SwipeableViews from "react-swipeable-views"
 
-import { Typography, IconButton, Paper, AppBar, Grid } from "@material-ui/core/"
-import { Toolbar, Tabs, Tab, Box } from "@material-ui/core/"
+import { Typography, Paper, AppBar, Grid } from "@material-ui/core/"
+import { Tabs, Tab, Box } from "@material-ui/core/"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
 
 function TabPanel(props) {
@@ -47,7 +43,8 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    textTransform: "none"
+    height: "70.25vh",
+    overflow: "auto"
   },
   appBar2: {
     justifyContent: "center",
@@ -65,13 +62,6 @@ const useStyles = makeStyles(theme => ({
       borderRadius: "0 0 5px 5px"
     }
   }
-  /* footer: {
-    height: "2vh",
-    padding: 0,
-    margin: 0,
-    borderRadius: 0,
-    backgroundColor: "#505050"
-  } */
 }))
 
 const Items = () => {
@@ -84,68 +74,66 @@ const Items = () => {
 
   const itemContext = useContext(ItemContext)
 
-  const { items, filtered, getItems, loading } = itemContext
+  const { items, getItems, loading } = itemContext
 
   useEffect(() => {
     getItems()
     // eslint-disable-next-line
   }, [])
 
-  if (items !== null && items.length === 0 && !loading) {
-    return <h4>Please add a item</h4>
-  }
+  console.log("Items over return", items)
 
-  console.log(items)
+  /*  if (items !== null && items.length === 0 && !loading) {
+    return <h4>Please add a item</h4>
+  } */
 
   return (
     <Fragment>
-      <AppBar className={classes.appBar2} position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          text-transform="none"
-          centered
-          aria-label="full width tabs example"
-        >
-          <Tab label="To Review" {...a11yProps(0)} />
-          <Tab label="All" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
-      <Grid container justify="center" alignItems="center">
-        <Grid item xs={11} sm={11} md={10} lg={6}>
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={value}
+      <Paper className={classes.root}>
+        <AppBar className={classes.appBar2} position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            text-transform="none"
+            centered
+            aria-label="full width tabs example"
           >
-            <TabPanel
-              className={classes.paddingTabEl}
-              value={value}
-              index={0}
-              dir={theme.direction}
+            <Tab label="To Review" {...a11yProps(0)} />
+            <Tab label="All" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+        <Grid container justify="center" alignItems="center">
+          <Grid item xs={11} sm={11} md={10} lg={6}>
+            <SwipeableViews
+              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+              index={value}
             >
-              <ToReviewList
-              /*  filteredItems={filteredItems}
+              <TabPanel
+                className={classes.paddingTabEl}
+                value={value}
+                index={0}
+                dir={theme.direction}
+              >
+                <ToReviewList
+                /*  filteredItems={filteredItems}
               setItemAsDone={setItemAsDone}
               sort={sort} */
-              />
-            </TabPanel>
-            <TabPanel
-              className={classes.paddingTabEl}
-              value={value}
-              index={1}
-              dir={theme.direction}
-            >
-              <AllList
-              /* deleteItem={deleteItem}
-          editRow={editRow}
-          sort={sort}  */
-              />
-            </TabPanel>
-          </SwipeableViews>
+                />
+              </TabPanel>
+              <TabPanel
+                className={classes.paddingTabEl}
+                value={value}
+                index={1}
+                dir={theme.direction}
+              >
+                <AllList />
+              </TabPanel>
+            </SwipeableViews>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </Fragment>
   )
 }

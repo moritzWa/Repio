@@ -7,8 +7,7 @@ import SaveIcon from "@material-ui/icons/Save"
 
 const ItemForm = () => {
   const itemContext = useContext(ItemContext)
-
-  const { addItem, updateItem, clearCurrent, current } = itemContext
+  const { addItem, sort, updateItem, clearCurrent, current } = itemContext
 
   const defaultInterval = "Longterm"
 
@@ -70,11 +69,15 @@ const ItemForm = () => {
   ]
 
   const useStyles = makeStyles({
+    root: {
+      backgroundColor: "#cfd8dc"
+    },
     FormPaper: {
       margin: "1rem",
       backgroundColor: "white",
-      padding: "3px",
-      textAlign: "center"
+      padding: "1.5rem",
+      textAlign: "center",
+      borderRadius: "20px"
     },
     FormItem: {
       margin: "10px"
@@ -102,7 +105,12 @@ const ItemForm = () => {
 
   return (
     <Fragment>
-      <Grid container justify="center" alignItems="center">
+      <Grid
+        className={classes.root}
+        container
+        justify="center"
+        alignItems="center"
+      >
         <Grid item xs={11} sm={8} md={6} lg={5}>
           <Paper className={classes.FormPaper}>
             <form onSubmit={onSubmit} className={classes.Form}>
@@ -159,7 +167,7 @@ const ItemForm = () => {
                 select
               >
                 {categories.map(option => (
-                  <MenuItem /* key={option.id} */ value={option.name}>
+                  <MenuItem key={option.name} value={option.name}>
                     {option.name}
                   </MenuItem>
                 ))}
@@ -177,7 +185,6 @@ const ItemForm = () => {
               {current && (
                 <Button
                   variant="contained"
-                  color="grey"
                   className={classes.button}
                   onClick={clearAll}
                 >

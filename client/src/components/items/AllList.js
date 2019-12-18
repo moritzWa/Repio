@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useContext, useEffect } from "react"
+import React, { useState, useContext } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
 
@@ -30,16 +30,6 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 
 import ItemContext from "../../context/item/itemContext"
 import Spinner from "../layout/Spinner"
-
-import * as Scroll from "react-scroll"
-import {
-  Link,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller
-} from "react-scroll"
 
 const useStyles = makeStyles({
   root: {
@@ -81,15 +71,7 @@ const AllList = props => {
   }
 
   const itemContext = useContext(ItemContext)
-  const {
-    items,
-    filtered,
-    setCurrent,
-    deleteItem,
-    clearCurrent,
-    getItems,
-    loading
-  } = itemContext
+  const { items, sort, setCurrent, deleteItem, clearCurrent } = itemContext
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deletingId, setDeletingId] = useState("")
@@ -121,38 +103,38 @@ const AllList = props => {
 
   return (
     <>
-      {items !== null ? (
+      {items !== null && items !== undefined ? (
         <Paper className={classes.root}>
-          <Table className={classes.table} aria-label="simple table">
+          <Table className={classes.table} aria-label="all items table">
             <TableHead className={classes.tableHeader}>
               <TableRow>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => props.sort("name")}
+                  onClick={() => sort("name")}
                 >
                   Name
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => props.sort("date")}
+                  onClick={() => sort("date")}
                 >
                   Created
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => props.sort("doneNum")}
+                  onClick={() => sort("doneNum")}
                 >
                   Reviews
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => props.sort("interval")}
+                  onClick={() => sort("interval")}
                 >
                   Interval
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => props.sort("category")}
+                  onClick={() => sort("category")}
                 >
                   Category
                 </TableCell>
