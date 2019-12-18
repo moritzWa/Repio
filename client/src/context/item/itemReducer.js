@@ -9,18 +9,22 @@ import {
   CLEAR_FILTER,
   CONTACT_ERROR,
   CLEAR_CONTACTS,
-  UPDATE_CONTACT_DONENUM
+  UPDATE_CONTACT_DONENUM,
+  SORT_ITEMS
 } from "../types"
 
 export default (state, action) => {
   switch (action.type) {
     case GET_CONTACTS:
+      console.log("getting in reducer")
+
       return {
         ...state,
         items: action.payload,
         loading: false
       }
     case ADD_CONTACT:
+      console.log("new item in cloud")
       return {
         ...state,
         items: [action.payload, ...state.items],
@@ -72,6 +76,12 @@ export default (state, action) => {
       return {
         ...state,
         filtered: null
+      }
+    case SORT_ITEMS:
+      console.log("sorting")
+      return {
+        ...state,
+        items: action.payload
       }
     case CONTACT_ERROR:
       return {

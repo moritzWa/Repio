@@ -144,7 +144,6 @@ const Register = props => {
             <Button
               className={classes.FormItem}
               variant="contained"
-              color="grey"
               component={Link}
               to={"/login"}
             >

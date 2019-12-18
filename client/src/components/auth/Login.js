@@ -49,7 +49,7 @@ const Login = props => {
 
   const useStyles = makeStyles({
     root: {
-      height: "100vh",
+      height: "94.5vh",
       backgroundColor: "#cfd8dc"
     },
     FormPaper: {
@@ -74,7 +74,7 @@ const Login = props => {
       className={classes.root}
       container
       justify="center"
-      alignItems="flex start"
+      alignItems="flex-start"
     >
       <Grid item xs={10} sm={8} md={4} lg={3}>
         <Paper className={classes.FormPaper}>
@@ -109,7 +109,6 @@ const Login = props => {
             <Button
               className={classes.FormItem}
               variant="contained"
-              color="grey"
               component={Link}
               to={"/register"}
             >

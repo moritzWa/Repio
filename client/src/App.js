@@ -14,7 +14,6 @@ import AlertState from "./context/alert/AlertState"
 import IntervalState from "./context/interval/IntervalState"
 
 import { Paper } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
 
 import "./App2.css"
 

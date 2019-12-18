@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import CheckIcon from "@material-ui/icons/Check"
 import IconButton from "@material-ui/core/IconButton"
@@ -19,11 +19,9 @@ const useStyles = makeStyles({
     width: "100%",
     overflow: "auto"
   },
-  table: {
-    minWidth: 500
-  },
-  tableHeader:{
-    background: '#f4f4f4'
+
+  tableHeader: {
+    background: "#f4f4f4"
   },
   doneText: {
     margin: "2rem",
@@ -41,41 +39,31 @@ const useStyles = makeStyles({
 const ToReviewList = () => {
   const classes = useStyles()
   const itemContext = useContext(ItemContext)
-  const {
-    items,
-    filteredItems,
-    filtered,
-    setCurrent,
-    deleteItem,
-    clearCurrent,
-    getItems,
-    loading,
-    incrementDoneNum
-  } = itemContext
+  const { items, sort, filteredItems, incrementDoneNum } = itemContext
 
   return (
     <>
       {items !== null ? (
-        <Paper elevation={0} className={classes.root}>
+        <Paper elevation={1} className={classes.root}>
           {filteredItems.length > 0 ? (
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
+            <Table className={classes.table} aria-label="to review table">
+              <TableHead className={classes.tableHeader}>
                 <TableRow>
                   <TableCell
                     className={classes.headCell}
-                    //onClick={() => props.sort("name")}
+                    onClick={() => sort("name")}
                   >
                     Name
                   </TableCell>
                   <TableCell
                     className={classes.headCell}
-                    // onClick={() => props.sort("overDoDays")}
+                    onClick={() => sort("overDoDays")}
                   >
                     Overdo since
                   </TableCell>
                   <TableCell
                     className={classes.headCell}
-                    //onClick={() => props.sort("category")}
+                    onClick={() => sort("category")}
                   >
                     Category
                   </TableCell>
@@ -85,7 +73,7 @@ const ToReviewList = () => {
               <TableBody>
                 {filteredItems.length > 0 ? (
                   filteredItems.map(item => (
-                    <TableRow key={item.name}>
+                    <TableRow key={item.name} key={item.name}>
                       <TableCell>{item.name}</TableCell>
                       <TableCell>{item.overDoDays}</TableCell>
                       <TableCell>{item.category}</TableCell>
@@ -108,7 +96,10 @@ const ToReviewList = () => {
             </Table>
           ) : (
             <Typography className={classes.doneText} variant="h5">
-              No items left for today 😊{" "}
+              No items left for today{" "}
+              <span role="img" aria-label="emoji">
+                😊
+              </span>{" "}
             </Typography>
           )}
         </Paper>

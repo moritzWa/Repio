@@ -1,4 +1,4 @@
-import React, { useReducer } from "react"
+import React, { useReducer, useState } from "react"
 import axios from "axios"
 import ItemContext from "./itemContext"
 import itemReducer from "./itemReducer"
@@ -13,7 +13,8 @@ import {
   CLEAR_CONTACTS,
   CLEAR_FILTER,
   CONTACT_ERROR,
-  UPDATE_CONTACT_DONENUM
+  UPDATE_CONTACT_DONENUM,
+  SORT_ITEMS
 } from "../types"
 
 const ItemState = props => {
@@ -45,83 +46,91 @@ const ItemState = props => {
     }
   }
 
-  // Expand item Information
-  if (state.items !== null) {
-    //Interval info
-    state.items.map(i =>
-      i.interval === "Longterm"
-        ? (i.interval = {
-            value: [1, 7, 14, 28, 56, 112, 224, 448],
-            label: "Longterm"
-          })
-        : (i.interval = {
-            value: [1, 4, 7, 10, 14, 21, 28, 38],
-            label: "Shortterm"
-          })
-    )
+  const expandInfo = () => {
+    // Expand item Information
+    if (state.items !== null && state.items !== undefined) {
+      //Interval info
+      console.log(state.items)
+      state.items.map(i =>
+        i.interval === "Longterm"
+          ? (i.interval = {
+              value: [1, 7, 14, 28, 56, 112, 224, 448],
+              label: "Longterm"
+            })
+          : (i.interval = {
+              value: [1, 4, 7, 10, 14, 21, 28, 38],
+              label: "Shortterm"
+            })
+      )
 
-    //Reps info
+      //Reps info
 
-    //setup structure logic
-    const createRepsStructure = usedInterval => {
-      let repsArrayStructure = []
+      //setup structure logic
+      const createRepsStructure = usedInterval => {
+        let repsArrayStructure = []
 
-      for (let i = 0; i < usedInterval.length; i++) {
-        repsArrayStructure.push({ Nr: i + 1, distence: usedInterval[i] })
+        for (let i = 0; i < usedInterval.length; i++) {
+          repsArrayStructure.push({ Nr: i + 1, distence: usedInterval[i] })
+        }
+        return repsArrayStructure
       }
-      return repsArrayStructure
-    }
 
-    //setup addDays Logic
-    const addDays = (date, days) => {
-      let result = new Date(date)
-      result.setDate(result.getDate() + days)
-      return result
-    }
+      //setup addDays Logic
+      const addDays = (date, days) => {
+        let result = new Date(date)
+        result.setDate(result.getDate() + days)
+        return result
+      }
 
-    //fill structure
-    state.items.map(i => (i.reps = createRepsStructure(i.interval.value)))
+      //fill structure
+      state.items.map(i => (i.reps = createRepsStructure(i.interval.value)))
 
-    state.items.map(i =>
-      i.reps.map(
-        /* r =>
+      state.items.map(i =>
+        i.reps.map(
+          /* r =>
           (r = {
             ...r,
             isDone: i.doneNum >= r.Nr ? true : false,
             date: addDays(i.date, r.distence)
           }) */
-        r => (
-          (r.isDone = i.doneNum >= r.Nr ? true : false),
-          (r.date = addDays(i.date, r.distence))
+          r => (
+            (r.isDone = i.doneNum >= r.Nr ? true : false),
+            (r.date = addDays(i.date, r.distence))
+          )
         )
       )
-    )
+    }
+
+    //get distence of overdo rep
+    const createOverDoDays = item => {
+      let overDoReps = item.reps.filter(rep => {
+        if (!rep.isDone && rep.date < new Date()) {
+          return rep //evtl inline?
+        }
+      })
+      if (overDoReps.length > 0) {
+        let overDoDays = Math.floor(
+          (overDoReps[0].date - new Date()) / (1000 * 3600 * 24) + 1
+        )
+        return overDoDays
+      } else return 0
+    }
+
+    if (state.items !== null) {
+      state.items.map(i => (i.overDoDays = createOverDoDays(i)))
+    }
   }
 
-  //get distence of overdo rep
-  const createOverDoDays = item => {
-    let overDoReps = item.reps.filter(rep => {
-      if (!rep.isDone && rep.date < new Date()) {
-        return rep //evtl inline?
-      }
-    })
-    if (overDoReps.length > 0) {
-      let overDoDays = Math.floor(
-        (overDoReps[0].date - new Date()) / (1000 * 3600 * 24) + 1
-      )
-      return overDoDays
-    } else return 0
-  }
+  if (state.items !== null && state.items !== undefined) {
+    console.log(state.items)
 
-  if (state.items !== null) {
-    state.items.map(i => (i.overDoDays = createOverDoDays(i)))
+    expandInfo()
   }
-
   //======================= API CRUD =========================//
 
   // Add Item
   const addItem = async item => {
-    //compute reps
+    console.log("starting adding/posting")
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -240,6 +249,57 @@ const ItemState = props => {
     dispatch({ type: CLEAR_FILTER })
   }
 
+  //=============================== Sorting Locic =================================//
+
+  //double logic could be shortened
+  const compareValues = (key, order = "asc") => {
+    return function(a, b) {
+      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+        return 0
+      }
+
+      if (a[key].label !== undefined) {
+        console.log("labelsorting activated")
+        var AProp = a[key].label
+        var BProp = b[key].label
+      } else if (a[key].name !== undefined) {
+        console.log("categorysort activated")
+        var AProp = a[key].name
+        var BProp = b[key].name
+      } else {
+        var AProp = a[key]
+        var BProp = b[key]
+      }
+
+      const varA = typeof AProp === "string" ? AProp.toUpperCase() : AProp
+      const varB = typeof BProp === "string" ? BProp.toUpperCase() : BProp
+
+      let comparison = 0
+      if (varA > varB) {
+        comparison = 1
+      } else if (varA < varB) {
+        comparison = -1
+      }
+      return order === "desc" ? comparison * -1 : comparison
+    }
+  }
+
+  const [isAsc, setDirectionToggler] = useState(true)
+
+  const sort = key => {
+    //create direction variable
+    let direction = isAsc ? "asc" : "desc"
+    //change sorting
+    let newOrder = state.items.sort(compareValues(key, direction))
+    //toggle diricton
+    setDirectionToggler(!isAsc)
+
+    dispatch({ type: SORT_ITEMS, payload: newOrder })
+
+    console.log(key, direction, newOrder)
+    //state was updated
+  }
+
   //======================= Filter for ToReview Locic =========================//
 
   //finnd item that has overdo reps
@@ -259,9 +319,11 @@ const ItemState = props => {
     return filteredArray //returns items
   }
 
-  if (state.items !== null) {
+  if (state.items !== null && state.items !== undefined) {
     state.filteredItems = filterOverDoItems(state.items)
   }
+
+  console.log("ItemState over return", state.items)
 
   return (
     <ItemContext.Provider
@@ -280,7 +342,8 @@ const ItemState = props => {
         filterItems,
         clearFilter,
         getItems,
-        clearItems
+        clearItems,
+        sort
       }}
     >
       {props.children}
