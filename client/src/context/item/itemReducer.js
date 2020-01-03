@@ -16,8 +16,6 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case GET_CONTACTS:
-      console.log("getting in reducer")
-
       return {
         ...state,
         items: action.payload,

@@ -7,7 +7,7 @@ import SaveIcon from "@material-ui/icons/Save"
 
 const ItemForm = () => {
   const itemContext = useContext(ItemContext)
-  const { addItem, sort, updateItem, clearCurrent, current } = itemContext
+  const { addItem, updateItem, clearCurrent, current } = itemContext
 
   const defaultInterval = "Longterm"
 
@@ -25,6 +25,7 @@ const ItemForm = () => {
     } else {
       setItem(empty)
     }
+        // eslint-disable-next-line
   }, [itemContext, current])
 
   const [item, setItem] = useState(empty)

@@ -51,7 +51,6 @@ const useStyles = makeStyles({
   },
   addCategoryFormInput: { maxWidth: "110px", marginRight: "20px" },
   chips: {
-    display: "flex",
     flexWrap: "wrap",
     display: "inline-block"
   },
