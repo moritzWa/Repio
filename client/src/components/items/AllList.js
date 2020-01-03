@@ -92,9 +92,6 @@ const AllList = props => {
     clearCurrent()
   }
 
-  {
-    console.log(items)
-  }
 
   const editRow = item => {
     scrollToTop()

@@ -74,14 +74,12 @@ const Items = () => {
 
   const itemContext = useContext(ItemContext)
 
-  const { items, getItems, loading } = itemContext
+  const { getItems } = itemContext
 
   useEffect(() => {
     getItems()
     // eslint-disable-next-line
   }, [])
-
-  console.log("Items over return", items)
 
   /*  if (items !== null && items.length === 0 && !loading) {
     return <h4>Please add a item</h4>

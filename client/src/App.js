@@ -11,7 +11,6 @@ import PrivateRoute from "./components/routing/PrivateRoute"
 import ItemState from "./context/item/ItemState"
 import AuthState from "./context/auth/AuthState"
 import AlertState from "./context/alert/AlertState"
-import IntervalState from "./context/interval/IntervalState"
 
 import { Paper } from "@material-ui/core"
 
@@ -23,7 +22,6 @@ const App = () => {
       <AuthState>
         <ItemState>
           <AlertState>
-            <IntervalState>
               <Router>
                 <Fragment>
                   <Navbar />
@@ -36,7 +34,6 @@ const App = () => {
                   </Switch>
                 </Fragment>
               </Router>
-            </IntervalState>
           </AlertState>
         </ItemState>
       </AuthState>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import AuthContext from "../../context/auth/authContext"
 import ItemContext from "../../context/item/itemContext"
 
-import RepioLogo from "../../RepioLogo2.png"
+//import RepioLogo from "../../RepioLogo2.png"
 
 import { makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"

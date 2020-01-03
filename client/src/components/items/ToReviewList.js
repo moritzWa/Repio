@@ -73,7 +73,7 @@ const ToReviewList = () => {
               <TableBody>
                 {filteredItems.length > 0 ? (
                   filteredItems.map(item => (
-                    <TableRow key={item.name} key={item.name}>
+                    <TableRow key={item.name}>
                       <TableCell>{item.name}</TableCell>
                       <TableCell>{item.overDoDays}</TableCell>
                       <TableCell>{item.category}</TableCell>

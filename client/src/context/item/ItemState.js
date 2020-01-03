@@ -30,7 +30,6 @@ const ItemState = props => {
 
   // Get Items
   const getItems = async () => {
-    console.log("starting getting")
     try {
       const res = await axios.get("/api/items")
 
@@ -50,7 +49,6 @@ const ItemState = props => {
     // Expand item Information
     if (state.items !== null && state.items !== undefined) {
       //Interval info
-      console.log(state.items)
       state.items.map(i =>
         i.interval === "Longterm"
           ? (i.interval = {
@@ -122,10 +120,9 @@ const ItemState = props => {
   }
 
   if (state.items !== null && state.items !== undefined) {
-    console.log(state.items)
-
     expandInfo()
   }
+
   //======================= API CRUD =========================//
 
   // Add Item
@@ -322,8 +319,6 @@ const ItemState = props => {
   if (state.items !== null && state.items !== undefined) {
     state.filteredItems = filterOverDoItems(state.items)
   }
-
-  console.log("ItemState over return", state.items)
 
   return (
     <ItemContext.Provider
