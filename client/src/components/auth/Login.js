@@ -28,7 +28,7 @@ const Login = props => {
 
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   })
 
   const { email, password } = user
