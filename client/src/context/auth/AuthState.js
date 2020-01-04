@@ -44,11 +44,6 @@ const AuthState = props => {
   // Register User
   const register = async formData => {
     console.log(formData)
-    const expandedFormData = {
-      ...formData,
-      categories: [{ name: "Testcategory1" }, { name: "Testcategory2" }]
-    }
-
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -56,8 +51,7 @@ const AuthState = props => {
     }
 
     try {
-      const res = await axios.post("/api/users", expandedFormData, config)
-      console.log(expandedFormData)
+      const res = await axios.post("/api/users", formData, config)
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data

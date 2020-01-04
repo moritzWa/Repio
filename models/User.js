@@ -20,7 +20,9 @@ const UserSchema = mongoose.Schema({
   },
   categories: [
     {
-      name: String
+      name: {
+        type: String
+      }
     }
   ]
 })
