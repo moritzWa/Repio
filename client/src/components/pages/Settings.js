@@ -119,7 +119,7 @@ const Settings = () => {
                     ))}
                   </div>
                   <div className={classes.formItem}>
-                    {user !== null ? (
+                    {user !== null && user.categories.lenght !== 0 ? (
                       (console.log(user),
                       user.categories.map(cat => (
                         <Chip
