@@ -85,7 +85,7 @@ const Register = props => {
       className={classes.root}
       container
       justify="center"
-      alignItems="flex start"
+      alignItems="flex-start"
     >
       <Grid item xs={10} sm={8} md={4} lg={3}>
         <Paper className={classes.FormPaper}>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Navbar from "./components/layout/Navbar"
 import Home from "./components/pages/Home"
 import About from "./components/pages/About"
+import Settings from "./components/pages/Settings"
 import Register from "./components/auth/Register"
 import Login from "./components/auth/Login"
 import Alerts from "./components/layout/Alerts"
@@ -22,18 +23,19 @@ const App = () => {
       <AuthState>
         <ItemState>
           <AlertState>
-              <Router>
-                <Fragment>
-                  <Navbar />
-                  <Alerts />
-                  <Switch>
-                    <PrivateRoute exact path="/" component={Home} />
-                    <Route exact path="/about" component={About} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/login" component={Login} />
-                  </Switch>
-                </Fragment>
-              </Router>
+            <Router>
+              <Fragment>
+                <Navbar />
+                <Alerts />
+                <Switch>
+                  <PrivateRoute exact path="/" component={Home} />
+                  <Route exact path="/about" component={About} />
+                  <PrivateRoute exact path="/settings" component={Settings} />
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/login" component={Login} />
+                </Switch>
+              </Fragment>
+            </Router>
           </AlertState>
         </ItemState>
       </AuthState>

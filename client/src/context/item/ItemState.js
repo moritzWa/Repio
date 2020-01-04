@@ -92,6 +92,7 @@ const ItemState = props => {
             date: addDays(i.date, r.distence)
           }) */
           r => (
+            // eslint-disable-next-line
             (r.isDone = i.doneNum >= r.Nr ? true : false),
             (r.date = addDays(i.date, r.distence))
           )
@@ -101,9 +102,13 @@ const ItemState = props => {
 
     //get distence of overdo rep
     const createOverDoDays = item => {
+      //tbd correct formular
+      // Expected return after arrow function
+
+      // eslint-disable-next-line
       let overDoReps = item.reps.filter(rep => {
         if (!rep.isDone && rep.date < new Date()) {
-          return rep //evtl inline?
+          return rep
         }
       })
       if (overDoReps.length > 0) {
@@ -254,18 +259,19 @@ const ItemState = props => {
       if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
         return 0
       }
-
+      let AProp
+      let BProp
       if (a[key].label !== undefined) {
         console.log("labelsorting activated")
-        var AProp = a[key].label
-        var BProp = b[key].label
+        AProp = a[key].label
+        BProp = b[key].label
       } else if (a[key].name !== undefined) {
         console.log("categorysort activated")
-        var AProp = a[key].name
-        var BProp = b[key].name
+        AProp = a[key].name
+        BProp = b[key].name
       } else {
-        var AProp = a[key]
-        var BProp = b[key]
+        AProp = a[key]
+        BProp = b[key]
       }
 
       const varA = typeof AProp === "string" ? AProp.toUpperCase() : AProp
