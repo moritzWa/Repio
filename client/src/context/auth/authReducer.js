@@ -6,8 +6,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
-} from '../types';
+  CLEAR_ERRORS,
+  ADD_CATEGORY,
+  DELETE_CATEGORY,
+  CATEGORY_ERROR
+} from "../types"
 
 export default (state, action) => {
   switch (action.type) {
@@ -17,21 +20,21 @@ export default (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: action.payload
-      };
+      }
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem("token", action.payload.token)
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
         loading: false
-      };
+      }
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-      localStorage.removeItem('token');
+      localStorage.removeItem("token")
       return {
         ...state,
         token: null,
@@ -39,13 +42,39 @@ export default (state, action) => {
         loading: false,
         user: null,
         error: action.payload
-      };
+      }
+    case ADD_CATEGORY:
+      console.log("starting to add new category")
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          categories: [...state.user.categories, action.payload]
+        }
+      }
+    case DELETE_CATEGORY:
+      console.log("startign to update categories array")
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          categories: state.user.categories.filter(
+            categories => categories._id !== action.payload
+          )
+        }
+      }
+    case CATEGORY_ERROR:
+      console.log("starting to delet categories obj")
+      return {
+        ...state,
+        error: action.payload
+      }
     case CLEAR_ERRORS:
       return {
         ...state,
         error: null
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}

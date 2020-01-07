@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from "react"
+import React, { Fragment, useState, useContext, useEffect } from "react"
 import AuthContext from "../../context/auth/authContext"
 
 import { makeStyles } from "@material-ui/core"
@@ -42,14 +42,7 @@ const Settings = () => {
 
   const classes = useStyles()
   const authContext = useContext(AuthContext)
-  const { user, loadUser } = authContext
-
-  const initiaCategories = [
-    { id: 1, name: "Business" },
-    { id: 2, name: "Technology" },
-    { id: 2, name: "Culture" },
-    { id: 2, name: "History" }
-  ]
+  const { user, loadUser, addUserCat, deleteUserCat } = authContext
 
   useEffect(() => {
     loadUser()
@@ -58,6 +51,23 @@ const Settings = () => {
 
   if (user !== null) {
     console.log(user.categories)
+  }
+
+  const empty = {
+    name: ""
+  }
+
+  const [category, setCategory] = useState(empty)
+
+  const { name } = category
+
+  const onChange = e =>
+    setCategory({ ...category, [e.target.name]: e.target.value })
+
+  const onSubmit = e => {
+    e.preventDefault()
+    addUserCat(category)
+    setCategory(empty)
   }
 
   return (
@@ -83,24 +93,19 @@ const Settings = () => {
                   <Typography variant="h6" align="left" gutterBottom>
                     Create new Categroy
                   </Typography>
-                  <form className={classes.formItem}>
+                  <form onSubmit={onSubmit} className={classes.formItem}>
                     <TextField
                       name="name"
                       className={classes.addCategoryFormInput}
-                      //value={category.name}
+                      value={name}
                       required
                       placeholder="i.e. Business"
-                      //onChange={handleInputChangeCategories}
+                      onChange={onChange}
                     />
                     <Button
                       className={classes.saveButton}
                       color="primary"
                       type="submit"
-                      /* onClick={e => {
-                        e.preventDefault()
-                        props.addCategory(category)
-                        setCategory(initialFormStateCategory)
-                      }} */
                     >
                       Save
                     </Button>
@@ -108,16 +113,7 @@ const Settings = () => {
                   <Typography variant="h6" align="left" gutterBottom>
                     Your Categories
                   </Typography>
-                  <div className={classes.formItem}>
-                    {initiaCategories.map(cat => (
-                      <Chip
-                        key={cat.name}
-                        className={classes.chip}
-                        label={cat.name}
-                        //onDelete={() => props.deleteCategory(cat.id)}
-                      />
-                    ))}
-                  </div>
+
                   <div className={classes.formItem}>
                     {user !== null && user.categories.lenght !== 0 ? (
                       (console.log(user),
@@ -126,7 +122,7 @@ const Settings = () => {
                           key={cat.name}
                           className={classes.chip}
                           label={cat.name}
-                          //onDelete={() => props.deleteCategory(cat.id)}
+                          onDelete={() => deleteUserCat(cat)}
                         />
                       )))
                     ) : (

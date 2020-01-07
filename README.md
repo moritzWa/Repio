@@ -7,6 +7,15 @@ npm install
 npm client-install
 ```
 
+Create default.json and production.json with:
+
+```
+{
+  "mongoURI": "mongodb+srv://Username:Password@contactkeeper-2lvqs.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}
+```
+
 ### Run Server
 
 ```bash

@@ -62,6 +62,7 @@ export default (state, action) => {
         ...state,
         current: null
       }
+    //currently no sorting function
     case FILTER_CONTACTS:
       return {
         ...state,
