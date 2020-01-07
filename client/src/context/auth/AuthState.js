@@ -94,7 +94,7 @@ const AuthState = props => {
   }
 
   // add UserCategorie
-  const addUserCat = category => {
+  const addUserCat = async category => {
     console.log("test-addUserCat", category)
     const config = {
       headers: {
@@ -102,8 +102,8 @@ const AuthState = props => {
       }
     }
     try {
-      const res = axios.put(
-        `/api/auth/addcat/${category._id}`,
+      const res = await axios.put(
+        `/api/users/addcat/${state.user._id}`,
         category,
         config
       )
@@ -124,9 +124,15 @@ const AuthState = props => {
       }
     }
     try {
-      const res = axios.put(`/api/auth/delcat${category._id}`, category, config)
+      const res = await axios.put(
+        `/api/users/delcat/${state.user._id}`,
+        category,
+        config
+      )
 
       dispatch({ type: DELETE_CATEGORY, payload: res.data })
+
+      loadUser()
     } catch (err) {
       dispatch({
         type: CATEGORY_ERROR,

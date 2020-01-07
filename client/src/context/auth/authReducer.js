@@ -44,7 +44,7 @@ export default (state, action) => {
         error: action.payload
       }
     case ADD_CATEGORY:
-      console.log("starting to add new category")
+      console.log("starting to add new category", action.payload)
       return {
         ...state,
         user: {

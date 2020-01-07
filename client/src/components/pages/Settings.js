@@ -37,6 +37,9 @@ const Settings = () => {
       width: "100%",
       margin: "20px 0",
       padding: ".3px"
+    },
+    chip: {
+      margin: "4px"
     }
   })
 
@@ -119,9 +122,11 @@ const Settings = () => {
                       (console.log(user),
                       user.categories.map(cat => (
                         <Chip
-                          key={cat.name}
+                          key={cat !== undefined ? cat.name : "cant read prop"}
                           className={classes.chip}
-                          label={cat.name}
+                          label={
+                            cat !== undefined ? cat.name : "cant read prop"
+                          }
                           onDelete={() => deleteUserCat(cat)}
                         />
                       )))

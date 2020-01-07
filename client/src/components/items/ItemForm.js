@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, Fragment } from "react"
 import ItemContext from "../../context/item/itemContext"
+import AuthContext from "../../context/auth/authContext"
 
 import { makeStyles } from "@material-ui/core/styles"
 import { Button, Grid, Paper, TextField, MenuItem } from "@material-ui/core/"
@@ -8,6 +9,9 @@ import SaveIcon from "@material-ui/icons/Save"
 const ItemForm = () => {
   const itemContext = useContext(ItemContext)
   const { addItem, updateItem, clearCurrent, current } = itemContext
+
+  const authContext = useContext(AuthContext)
+  const { user } = authContext
 
   const defaultInterval = "Longterm"
 
@@ -25,7 +29,7 @@ const ItemForm = () => {
     } else {
       setItem(empty)
     }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [itemContext, current])
 
   const [item, setItem] = useState(empty)
@@ -59,15 +63,6 @@ const ItemForm = () => {
 
     return [year, month, day].join("-")
   }
-
-  const categories = [
-    {
-      name: "Business"
-    },
-    {
-      name: "Culture"
-    }
-  ]
 
   const useStyles = makeStyles({
     root: {
@@ -167,11 +162,15 @@ const ItemForm = () => {
                 label="Category"
                 select
               >
-                {categories.map(option => (
-                  <MenuItem key={option.name} value={option.name}>
-                    {option.name}
-                  </MenuItem>
-                ))}
+                {user !== null ? (
+                  user.categories.map(option => (
+                    <MenuItem key={option._id} value={option.name}>
+                      {option.name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <p>loading</p>
+                )}
               </TextField>
 
               <Button
