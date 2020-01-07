@@ -77,18 +77,58 @@ router.post(
   }
 )
 
-// @route     PUT api/users/addcat/:id
+// @route     PUT api/users/addcat/:catName
 // @desc      Create new category for User
 // @access    Private
 
-router.put("/addcat/:catName", auth, async (req, res)=>{
-  const 
+router.put("/addcat/:userid", async (req, res) => {
+  try {
+    //update user by attatching category
+    User.findByIdAndUpdate(
+      req.params.userid,
+      { $push: { categories: req.body } },
+      { new: true },
+      function(err, doc) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("added category")
+        }
+      }
+    )
+
+    res.json(req.body)
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).send("Server Error in addcat")
+  }
 })
 
 // @route     PUT api/users/delcat/:id
 // @desc      Delete category of User
 // @access    Private
 
-router.put("/addcat/:catName")
+router.put("/delcat/:userid", async (req, res) => {
+  try {
+    //update user by attatching category
+    User.findByIdAndUpdate(
+      req.params.userid,
+      { $pull: { categories: req.body } },
+      { safe: true, upsert: true },
+      function(err, doc) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("deleted category")
+        }
+      }
+    )
+
+    res.json(req.body)
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).send("Server Error in delcat")
+  }
+})
 
 module.exports = router

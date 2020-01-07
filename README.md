@@ -7,7 +7,7 @@ npm install
 npm client-install
 ```
 
-Create default.json and production.json with:
+Create default.json and production.json in config folder with:
 
 ```
 {
