@@ -11,7 +11,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  DELETE_CATEGORY,
+  CATEGORY_ERROR,
+  ADD_CATEGORY
 } from "../types"
 
 const AuthState = props => {
@@ -43,7 +46,6 @@ const AuthState = props => {
 
   // Register User
   const register = async formData => {
-    console.log(formData)
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -91,6 +93,48 @@ const AuthState = props => {
     }
   }
 
+  // add UserCategorie
+  const addUserCat = category => {
+    console.log("test-addUserCat", category)
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    try {
+      const res = axios.put(
+        `/api/auth/addcat/${category._id}`,
+        category,
+        config
+      )
+      dispatch({ type: ADD_CATEGORY, payload: res.data })
+    } catch (err) {
+      dispatch({
+        type: CATEGORY_ERROR,
+        payload: err.response.msg
+      })
+    }
+  }
+
+  // delete UserCategorie
+  const deleteUserCat = async category => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    try {
+      const res = axios.put(`/api/auth/delcat${category._id}`, category, config)
+
+      dispatch({ type: DELETE_CATEGORY, payload: res.data })
+    } catch (err) {
+      dispatch({
+        type: CATEGORY_ERROR,
+        payload: err.response.msg
+      })
+    }
+  }
+
   // Logout
   const logout = () => dispatch({ type: LOGOUT })
 
@@ -109,7 +153,9 @@ const AuthState = props => {
         loadUser,
         login,
         logout,
-        clearErrors
+        clearErrors,
+        addUserCat,
+        deleteUserCat
       }}
     >
       {props.children}

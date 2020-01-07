@@ -41,13 +41,14 @@ router.post(
         name,
         email,
         password,
-        categories: [{ name: "Testcategory1" }, { name: "Testcategory2" }]
+        categories: [
+          { name: "Business" },
+          { name: "Technology" },
+          { name: "Culture" },
+          { name: "History" }
+        ]
       })
-
-      console.log(user)
-
       const salt = await bcrypt.genSalt(10)
-
       user.password = await bcrypt.hash(password, salt)
 
       await user.save()
@@ -75,5 +76,19 @@ router.post(
     }
   }
 )
+
+// @route     PUT api/users/addcat/:id
+// @desc      Create new category for User
+// @access    Private
+
+router.put("/addcat/:catName", auth, async (req, res)=>{
+  const 
+})
+
+// @route     PUT api/users/delcat/:id
+// @desc      Delete category of User
+// @access    Private
+
+router.put("/addcat/:catName")
 
 module.exports = router
