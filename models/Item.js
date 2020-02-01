@@ -21,6 +21,10 @@ const ItemSchema = mongoose.Schema({
   },
   date: {
     type: Date
+  },
+  intervalRef: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Interval"
   }
 })
 

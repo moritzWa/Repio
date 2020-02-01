@@ -31,6 +31,9 @@ const ItemState = props => {
   // Get Items
   const getItems = async () => {
     try {
+      console.log(await axios.get("/api/items"))
+      //loggs data/items with 'interval: "Longterm" '
+
       const res = await axios.get("/api/items")
 
       dispatch({
@@ -44,6 +47,7 @@ const ItemState = props => {
       })
     }
   }
+  console.log(state.items)
 
   const expandInfo = () => {
     // Expand item Information
