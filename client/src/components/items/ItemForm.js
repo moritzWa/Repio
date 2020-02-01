@@ -13,6 +13,7 @@ const ItemForm = () => {
   const authContext = useContext(AuthContext)
   const { user } = authContext
 
+  // get from user profile
   const defaultInterval = "Longterm"
 
   const empty = {
