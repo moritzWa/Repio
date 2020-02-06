@@ -44,8 +44,8 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
-    // tbd dont add interval reference
-    const { name, date, doneNum, interval, category } = req.body
+    // tbd dont add normal interval reference
+    const { name, date, doneNum, interval, category, intervalRef } = req.body
 
     try {
       const newItem = new Item({
@@ -54,12 +54,14 @@ router.post(
         doneNum,
         interval,
         category,
-        user: req.user.id
+        user: req.user.id,
+        intervalRef
       })
 
       const item = await newItem.save()
 
       res.json(item)
+      console.log(item)
     } catch (err) {
       console.error(err.message)
       res.status(500).send("Server Error")
