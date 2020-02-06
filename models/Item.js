@@ -20,7 +20,8 @@ const ItemSchema = mongoose.Schema({
     default: "personal"
   },
   date: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   intervalRef: {
     type: mongoose.Schema.ObjectId,

@@ -23,7 +23,7 @@ router.get("/", auth, async (req, res) => {
   }
 })
 
-// @route     POST api/intarvals
+// @route     POST api/intervals
 // @desc      Add new interval
 // @access    Private
 //no auth
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
 
 //NO EDIT ie PUT FOR NOW
 
-// @route     PUT api/intarvals/:id
+// @route     PUT api/intervals/:id
 // @desc      Update interval
 // @access    Private
 
