@@ -22,8 +22,6 @@ const ItemForm = () => {
     // eslint-disable-next-line
   }, [])
 
-  console.log(intervals, user ? user.categories : "not loaded")
-
   // get from last addad item
   const defaultInterval = "5e3d6ce7aebd7b45657a477c"
   const defultCategorie = "5e14e1484fe9b60e47f97432"
@@ -32,7 +30,7 @@ const ItemForm = () => {
     name: "",
     date: new Date(),
     doneNum: 0,
-    interval: defaultInterval,
+    intervalRef: defaultInterval,
     category: defultCategorie
   }
 
@@ -47,7 +45,7 @@ const ItemForm = () => {
 
   const [item, setItem] = useState(empty)
 
-  const { name, date, doneNum, interval, category } = item
+  const { name, date, doneNum, intervalRef, category } = item
 
   const onChange = e => setItem({ ...item, [e.target.name]: e.target.value })
 
@@ -157,9 +155,9 @@ const ItemForm = () => {
               />
 
               <TextField
-                name="interval"
+                name="intervalRef"
                 className={classes.FormItemSelect}
-                value={interval}
+                value={intervalRef}
                 select
                 label="Interval"
                 onChange={onChange}

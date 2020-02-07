@@ -71,10 +71,6 @@ const Settings = () => {
     // eslint-disable-next-line
   }, [])
 
-  if (intervals !== null) {
-    console.log(intervals)
-  }
-
   const emptyCategory = {
     name: ""
   }

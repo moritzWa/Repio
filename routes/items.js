@@ -11,9 +11,12 @@ const Item = require("../models/Item")
 // @access    Private
 router.get("/", auth, async (req, res) => {
   try {
-    const items = await Item.find({ user: req.user.id }).sort({
-      date: -1
-    })
+    const items = await Item.find({ user: req.user.id })
+      .sort({
+        date: -1
+      })
+      .populate("intervalRef")
+    //.populate({ path: "intervalRef" })
 
     // Tbd add interval data through reference to item
 
@@ -46,7 +49,7 @@ router.post(
     }
     // tbd dont add normal interval reference
     const { name, date, doneNum, interval, category, intervalRef } = req.body
-
+    console.log(intervalRef)
     try {
       const newItem = new Item({
         name,

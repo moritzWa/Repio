@@ -25,7 +25,7 @@ const ItemSchema = mongoose.Schema({
   },
   intervalRef: {
     type: mongoose.Schema.ObjectId,
-    ref: "Interval"
+    ref: "interval"
   }
 })
 
