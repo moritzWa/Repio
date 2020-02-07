@@ -11,12 +11,9 @@ const Interval = require("../models/Interval")
 // @desc      Get all of users intervals
 // @access    Private
 router.get("/", auth, async (req, res) => {
-  req.user
-    ? console.log("req.user.id:", req.user.id) //I guess this comes from the token in header?!
-    : console.log("no req.user = hardcoded below")
   try {
-    const intarval = await Interval.find({ user: req.user.id })
-    res.json(intarval)
+    const intarvals = await Interval.find({ user: req.user.id })
+    res.json(intarvals)
   } catch (error) {
     console.error(error.message)
     res.status(500).send("Server Error")
@@ -27,19 +24,15 @@ router.get("/", auth, async (req, res) => {
 // @desc      Add new interval
 // @access    Private
 //no auth
-router.post("/", async (req, res) => {
-  console.log("req.body:", req.body)
-  req.user
-    ? console.log("req.user.id:", req.user.id)
-    : console.log("no req.user = hardcoded below")
-
+router.post("/", auth, async (req, res) => {
+  console.log("posting interval", req.user)
   try {
     const { label, value } = req.body
 
     const newInterval = new Interval({
       label,
       value,
-      user: "5e3558ce07be3d2a1ece64e5"
+      user: req.user.id
     })
     const interval = await newInterval.save()
     res.json(interval)
@@ -48,12 +41,6 @@ router.post("/", async (req, res) => {
     res.status(500).send("Server Error Post Intervals")
   }
 })
-
-//NO EDIT ie PUT FOR NOW
-
-// @route     PUT api/intervals/:id
-// @desc      Update interval
-// @access    Private
 
 // @route     DELETE api/intervals/:id
 // @desc      Delete interval

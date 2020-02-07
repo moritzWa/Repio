@@ -110,11 +110,7 @@ const Items = () => {
                 index={0}
                 dir={theme.direction}
               >
-                <ToReviewList
-                /*  filteredItems={filteredItems}
-              setItemAsDone={setItemAsDone}
-              sort={sort} */
-                />
+                <ToReviewList />
               </TabPanel>
               <TabPanel
                 className={classes.paddingTabEl}
