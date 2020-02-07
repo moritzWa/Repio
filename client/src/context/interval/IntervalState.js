@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react"
+import React, { useReducer } from "react"
 import axios from "axios"
 import IntervalContext from "./intervalContext"
 import intervalReducer from "./intervalReducer"

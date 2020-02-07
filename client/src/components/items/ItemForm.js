@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, Fragment } from "react"
 import ItemContext from "../../context/item/itemContext"
 import AuthContext from "../../context/auth/authContext"
+import IntervalContext from "../../context/interval/intervalContext"
 
 import { makeStyles } from "@material-ui/core/styles"
 import { Button, Grid, Paper, TextField, MenuItem } from "@material-ui/core/"
@@ -13,15 +14,26 @@ const ItemForm = () => {
   const authContext = useContext(AuthContext)
   const { user } = authContext
 
-  // get from user profile
-  const defaultInterval = "Longterm"
+  const intervalContext = useContext(IntervalContext)
+  const { intervals, getIntervals } = intervalContext
+
+  useEffect(() => {
+    getIntervals()
+    // eslint-disable-next-line
+  }, [])
+
+  console.log(intervals, user ? user.categories : "not loaded")
+
+  // get from last addad item
+  const defaultInterval = "5e3d6ce7aebd7b45657a477c"
+  const defultCategorie = "5e14e1484fe9b60e47f97432"
 
   const empty = {
     name: "",
     date: new Date(),
     doneNum: 0,
     interval: defaultInterval,
-    category: "Business"
+    category: defultCategorie
   }
 
   useEffect(() => {
@@ -152,8 +164,12 @@ const ItemForm = () => {
                 label="Interval"
                 onChange={onChange}
               >
-                <MenuItem value="Longterm">Longterm</MenuItem>
-                <MenuItem value="Shortterm">Shortterm</MenuItem>
+                {intervals !== null &&
+                  intervals.map(option => (
+                    <MenuItem key={option._id} value={option._id}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
               </TextField>
               <TextField
                 name="category"
@@ -165,7 +181,7 @@ const ItemForm = () => {
               >
                 {user !== null ? (
                   user.categories.map(option => (
-                    <MenuItem key={option._id} value={option.name}>
+                    <MenuItem key={option._id} value={option._id}>
                       {option.name}
                     </MenuItem>
                   ))

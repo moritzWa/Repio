@@ -30,10 +30,7 @@ const ItemState = props => {
 
   // Get Items
   const getItems = async () => {
-    console.log("getting items")
     try {
-      console.log(await axios.get("/api/items"))
-
       const res = await axios.get("/api/items")
 
       dispatch({
@@ -47,7 +44,6 @@ const ItemState = props => {
       })
     }
   }
-  console.log(state.items)
 
   const expandInfo = () => {
     // Expand item Information

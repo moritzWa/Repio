@@ -23,7 +23,6 @@ router.get("/", auth, async (req, res) => {
 // @route     POST api/intervals
 // @desc      Add new interval
 // @access    Private
-//no auth
 router.post("/", auth, async (req, res) => {
   console.log("posting interval", req.user)
   try {
