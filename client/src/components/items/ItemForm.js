@@ -24,7 +24,10 @@ const ItemForm = () => {
 
   // get from last addad item
   const defaultInterval = "5e3d6ce7aebd7b45657a477c"
-  const defultCategorie = "5e14e1484fe9b60e47f97432"
+  const defultCategorie = {
+    _id: "5e14e1484fe9b60e47f97432",
+    name: "Business"
+  }
 
   const empty = {
     name: "",
@@ -179,7 +182,7 @@ const ItemForm = () => {
               >
                 {user !== null ? (
                   user.categories.map(option => (
-                    <MenuItem key={option._id} value={option._id}>
+                    <MenuItem key={option._id} value={option.name}>
                       {option.name}
                     </MenuItem>
                   ))

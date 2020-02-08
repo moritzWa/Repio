@@ -92,7 +92,6 @@ const AllList = props => {
     clearCurrent()
   }
 
-
   const editRow = item => {
     scrollToTop()
     setCurrent(item)
@@ -165,7 +164,7 @@ const AllList = props => {
                         </ol>
                       </ExpansionPanel>
                     </TableCell>
-                    <TableCell>{item.interval.label}</TableCell>
+                    <TableCell>{item.intervalRef.label}</TableCell>
                     <TableCell>{item.category}</TableCell>
                     <TableCell>
                       <IconButton

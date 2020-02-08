@@ -42,12 +42,13 @@ router.post(
         email,
         password,
         categories: [
-          { name: "Business" },
-          { name: "Technology" },
-          { name: "Culture" },
-          { name: "History" }
+          { name: "Business", _id: "1" },
+          { name: "Technology", _id: "2" },
+          { name: "Culture", _id: "3" },
+          { name: "History", _id: "4" }
         ]
       })
+
       const salt = await bcrypt.genSalt(10)
       user.password = await bcrypt.hash(password, salt)
 

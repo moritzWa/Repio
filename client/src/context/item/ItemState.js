@@ -81,7 +81,12 @@ const ItemState = props => {
       }
 
       //fill structure
-      state.items.map(i => (i.reps = createRepsStructure(i.interval.value)))
+      state.items.map(
+        i =>
+          (i.reps = createRepsStructure(
+            i.intervalRef.value || i.interval.value
+          ))
+      )
 
       state.items.map(i =>
         i.reps.map(

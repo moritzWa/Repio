@@ -22,7 +22,7 @@ export default (state, action) => {
         loading: false
       }
     case ADD_CONTACT:
-      console.log("new item in cloud")
+      console.log("new item in cloud", action.payload)
       return {
         ...state,
         items: [action.payload, ...state.items],

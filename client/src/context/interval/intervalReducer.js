@@ -8,7 +8,6 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case GET_INTERVALS:
-      console.log("using action payload")
       return {
         ...state,
         intervals: action.payload,

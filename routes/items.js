@@ -18,10 +18,6 @@ router.get("/", auth, async (req, res) => {
       .populate("intervalRef")
     //.populate({ path: "intervalRef" })
 
-    // Tbd add interval data through reference to item
-
-    // Tbd add categorie data through reference to item
-
     res.json(items)
   } catch (err) {
     console.error(err.message)
@@ -48,14 +44,12 @@ router.post(
       return res.status(400).json({ errors: errors.array() })
     }
     // tbd dont add normal interval reference
-    const { name, date, doneNum, interval, category, intervalRef } = req.body
-    console.log(intervalRef)
+    const { name, date, doneNum, category, intervalRef } = req.body
     try {
       const newItem = new Item({
         name,
         date,
         doneNum,
-        interval,
         category,
         user: req.user.id,
         intervalRef
@@ -63,8 +57,11 @@ router.post(
 
       const item = await newItem.save()
 
-      res.json(item)
-      console.log(item)
+      const itemWithIntervRef = await Item.findById(item._id).populate(
+        "intervalRef"
+      )
+
+      res.json(itemWithIntervRef)
     } catch (err) {
       console.error(err.message)
       res.status(500).send("Server Error")
@@ -76,7 +73,7 @@ router.post(
 // @desc      Increment DoneNum
 // @access    Private
 router.put("/increment/:id", auth, async (req, res) => {
-  const { name, date, doneNum, interval, category } = req.body
+  const { name, date, doneNum, intervalRef, category } = req.body
 
   const NewDoneNum = Number(doneNum) + 1
   console.log(NewDoneNum)
@@ -86,7 +83,7 @@ router.put("/increment/:id", auth, async (req, res) => {
   if (name) itemFields.name = name
   if (date) itemFields.date = date
   if (doneNum) itemFields.doneNum = NewDoneNum
-  if (interval.label) itemFields.interval = interval.label
+  if (intervalRef) itemFields.intervalRef = intervalRef
   if (category) itemFields.category = category
 
   try {
@@ -116,14 +113,14 @@ router.put("/increment/:id", auth, async (req, res) => {
 // @desc      Update item
 // @access    Private
 router.put("/:id", auth, async (req, res) => {
-  const { name, date, doneNum, interval, category } = req.body
+  const { name, date, doneNum, intervalRef, category } = req.body
 
   // Build item object
   const itemFields = {}
   if (name) itemFields.name = name
   if (date) itemFields.date = date
   if (doneNum) itemFields.doneNum = doneNum
-  if (interval.label) itemFields.interval = interval.label
+  if (intervalRef) itemFields.intervalRef = intervalRef
   if (category) itemFields.category = category
 
   try {
@@ -140,7 +137,7 @@ router.put("/:id", auth, async (req, res) => {
       req.params.id,
       { $set: itemFields },
       { new: true }
-    )
+    ).populate("intervalRef")
 
     res.json(item)
   } catch (err) {
