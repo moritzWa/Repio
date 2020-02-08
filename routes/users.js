@@ -6,6 +6,7 @@ const config = require("config")
 const { check, validationResult } = require("express-validator/check")
 
 const User = require("../models/User")
+const Interval = require("../models/Interval")
 
 // @route     POST api/users
 // @desc      Regiter a user
@@ -28,7 +29,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() })
     }
 
-    const { name, email, password, categories } = req.body
+    const { name, email, password } = req.body
 
     try {
       let user = await User.findOne({ email })
@@ -42,17 +43,25 @@ router.post(
         email,
         password,
         categories: [
-          { name: "Business", _id: "1" },
-          { name: "Technology", _id: "2" },
-          { name: "Culture", _id: "3" },
-          { name: "History", _id: "4" }
+          { name: "Business" },
+          { name: "Technology" },
+          { name: "Culture" },
+          { name: "History" }
         ]
       })
 
       const salt = await bcrypt.genSalt(10)
       user.password = await bcrypt.hash(password, salt)
 
-      await user.save()
+      const savedUser = await user.save()
+      //create default cat with user id
+
+      const newInterval = new Interval({
+        label: "defaultinterval",
+        value: [1, 7, 14, 28, 42, 56, 98, 196],
+        user: savedUser._id
+      })
+      await newInterval.save()
 
       const payload = {
         user: {

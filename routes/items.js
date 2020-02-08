@@ -16,7 +16,6 @@ router.get("/", auth, async (req, res) => {
         date: -1
       })
       .populate("intervalRef")
-    //.populate({ path: "intervalRef" })
 
     res.json(items)
   } catch (err) {

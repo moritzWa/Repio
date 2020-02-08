@@ -164,6 +164,7 @@ const ItemForm = () => {
                 select
                 label="Interval"
                 onChange={onChange}
+                required
               >
                 {intervals !== null &&
                   intervals.map(option => (
