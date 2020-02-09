@@ -22,7 +22,7 @@ export default (state, action) => {
         loading: false
       }
     case ADD_CONTACT:
-      console.log("new item in cloud", action.payload)
+      console.log("new item as res:", action.payload)
       return {
         ...state,
         items: [action.payload, ...state.items],
@@ -83,6 +83,7 @@ export default (state, action) => {
         items: action.payload
       }
     case CONTACT_ERROR:
+      console.log(action.payload)
       return {
         ...state,
         error: action.payload

@@ -152,6 +152,7 @@ const ItemState = props => {
         payload: res.data
       })
     } catch (err) {
+      console.log(err.response)
       dispatch({
         type: CONTACT_ERROR,
         payload: err.response.msg

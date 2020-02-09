@@ -55,6 +55,7 @@ router.post(
 
       const savedUser = await user.save()
       //create default cat with user id
+      console.log(savedUser)
 
       const newInterval = new Interval({
         label: "defaultinterval",

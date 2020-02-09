@@ -9,7 +9,7 @@ import SaveIcon from "@material-ui/icons/Save"
 
 const ItemForm = () => {
   const itemContext = useContext(ItemContext)
-  const { addItem, updateItem, clearCurrent, current } = itemContext
+  const { items, addItem, updateItem, clearCurrent, current } = itemContext
 
   const authContext = useContext(AuthContext)
   const { user } = authContext
@@ -23,23 +23,28 @@ const ItemForm = () => {
   }, [])
 
   // get from last addad item
-  const defaultInterval = "5e3d6ce7aebd7b45657a477c"
-  const defultCategorie = {
-    _id: "5e14e1484fe9b60e47f97432",
-    name: "Business"
+  const defaultInterval = {
+    label: "default",
+    value: [1, 5, 8, 8, 8, 7],
+    _id: "123"
   }
+  const defultCategorie = "Culture"
+
+  console.log("items[0].intervalRef", items && items[0].intervalRef)
+  console.log("items[0].category", items && items[0].category)
 
   const empty = {
     name: "",
     date: new Date(),
     doneNum: 0,
-    intervalRef: defaultInterval,
-    category: defultCategorie
+    intervalRef: items !== null ? items[0].intervalRef : defaultInterval,
+    category: items !== null ? items[0].category : defultCategorie
   }
 
   useEffect(() => {
     if (current !== null) {
       setItem(current)
+      console.log(current)
     } else {
       setItem(empty)
     }
@@ -55,6 +60,7 @@ const ItemForm = () => {
   const onSubmit = e => {
     e.preventDefault()
     if (current === null) {
+      console.log(item) //
       addItem(item)
     } else {
       updateItem(item)
@@ -158,17 +164,17 @@ const ItemForm = () => {
               />
 
               <TextField
+                required
                 name="intervalRef"
                 className={classes.FormItemSelect}
                 value={intervalRef}
                 select
                 label="Interval"
                 onChange={onChange}
-                required
               >
                 {intervals !== null &&
                   intervals.map(option => (
-                    <MenuItem key={option._id} value={option._id}>
+                    <MenuItem key={option._id} value={option.label}>
                       {option.label}
                     </MenuItem>
                   ))}

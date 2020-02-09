@@ -59,7 +59,7 @@ router.post(
       const itemWithIntervRef = await Item.findById(item._id).populate(
         "intervalRef"
       )
-
+      console.log("itemWithIntervRef", itemWithIntervRef)
       res.json(itemWithIntervRef)
     } catch (err) {
       console.error(err.message)
@@ -99,7 +99,7 @@ router.put("/increment/:id", auth, async (req, res) => {
       req.params.id,
       { $set: itemFields },
       { new: true }
-    )
+    ).populate("intervalRef")
 
     res.json(item)
   } catch (err) {
