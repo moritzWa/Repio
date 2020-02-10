@@ -22,27 +22,35 @@ const ItemForm = () => {
     // eslint-disable-next-line
   }, [])
 
-  // get from last addad item
+  const defultCategorie = "Culture"
+
   const defaultInterval = {
     label: "default",
     value: [1, 5, 8, 8, 8, 7],
     _id: "123"
   }
-  const defultCategorie = "Culture"
 
-  console.log("items[0].intervalRef", items && items[0].intervalRef)
-  console.log("items[0].category", items && items[0].category)
+  //select last used inv through comparing
+  const lastUsedItvItemCtx =
+    items !== null ? items[0].intervalRef : defaultInterval
+  const lastUsedItvIntervalCtx =
+    intervals !== null
+      ? intervals.find(itv => itv.label === lastUsedItvItemCtx.label)
+      : defultCategorie
 
   const empty = {
     name: "",
     date: new Date(),
     doneNum: 0,
-    intervalRef: items !== null ? items[0].intervalRef : defaultInterval,
+    intervalRef: intervals ? lastUsedItvIntervalCtx : defaultInterval,
     category: items !== null ? items[0].category : defultCategorie
   }
 
   useEffect(() => {
     if (current !== null) {
+      current.intervalRef = intervals.find(
+        i => i.label === current.intervalRef.label
+      )
       setItem(current)
       console.log(current)
     } else {
@@ -172,12 +180,15 @@ const ItemForm = () => {
                 label="Interval"
                 onChange={onChange}
               >
-                {intervals !== null &&
+                {intervals !== null ? (
                   intervals.map(option => (
-                    <MenuItem key={option._id} value={option.label}>
+                    <MenuItem key={option._id} value={option}>
                       {option.label}
                     </MenuItem>
-                  ))}
+                  ))
+                ) : (
+                  <p>loading</p>
+                )}
               </TextField>
               <TextField
                 name="category"
