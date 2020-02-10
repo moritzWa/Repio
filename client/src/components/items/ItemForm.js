@@ -22,28 +22,19 @@ const ItemForm = () => {
     // eslint-disable-next-line
   }, [])
 
-  const defultCategorie = "Culture"
-
-  const defaultInterval = {
-    label: "default",
-    value: [1, 5, 8, 8, 8, 7],
-    _id: "123"
-  }
-
   //select last used inv through comparing
-  const lastUsedItvItemCtx =
-    items !== null ? items[0].intervalRef : defaultInterval
+  const lastUsedItvItemCtx = items !== null ? items[0].intervalRef : ""
   const lastUsedItvIntervalCtx =
     intervals !== null
       ? intervals.find(itv => itv.label === lastUsedItvItemCtx.label)
-      : defultCategorie
+      : ""
 
   const empty = {
     name: "",
     date: new Date(),
     doneNum: 0,
-    intervalRef: intervals ? lastUsedItvIntervalCtx : defaultInterval,
-    category: items !== null ? items[0].category : defultCategorie
+    intervalRef: intervals ? lastUsedItvIntervalCtx : "",
+    category: items !== null ? items[0].category : ""
   }
 
   useEffect(() => {
@@ -52,7 +43,6 @@ const ItemForm = () => {
         i => i.label === current.intervalRef.label
       )
       setItem(current)
-      console.log(current)
     } else {
       setItem(empty)
     }

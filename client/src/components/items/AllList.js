@@ -152,7 +152,10 @@ const AllList = props => {
                           aria-controls="panel1a-content"
                           id="panel1a-header"
                         >
-                          {item.doneNum}/10
+                          {item.doneNum}/
+                          {item.intervalRef
+                            ? item.intervalRef.value.length
+                            : "10"}
                         </ExpansionPanelSummary>
 
                         <ol>

@@ -13,10 +13,14 @@ import ItemState from "./context/item/ItemState"
 import AuthState from "./context/auth/AuthState"
 import IntervalState from "./context/interval/IntervalState"
 import AlertState from "./context/alert/AlertState"
+import setAuthToken from "./utils/setAuthToken"
 
 import { Paper } from "@material-ui/core"
-
 import "./App2.css"
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token)
+}
 
 const App = () => {
   return (
