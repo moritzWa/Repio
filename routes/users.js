@@ -7,6 +7,7 @@ const { check, validationResult } = require("express-validator/check")
 
 const User = require("../models/User")
 const Interval = require("../models/Interval")
+const Item = require("../models/Item")
 
 // @route     POST api/users
 // @desc      Regiter a user
@@ -45,7 +46,7 @@ router.post(
         categories: [
           { name: "Business" },
           { name: "Technology" },
-          { name: "Culture" },
+          { name: "Psychology" },
           { name: "History" }
         ]
       })
@@ -53,16 +54,28 @@ router.post(
       const salt = await bcrypt.genSalt(10)
       user.password = await bcrypt.hash(password, salt)
 
-      const savedUser = await user.save()
+      const newUser = await user.save()
       //create default cat with user id
-      console.log(savedUser)
+      console.log(newUser)
 
-      const newInterval = new Interval({
+      const interval = new Interval({
         label: "defaultinterval",
         value: [1, 7, 14, 28, 42, 56, 98, 196],
-        user: savedUser._id
+        user: newUser._id
       })
-      await newInterval.save()
+      const newInterval = await interval.save()
+
+      //create example item
+      const item = new Item({
+        name: "Notes on Spaced Repetition",
+        category: "Psychology",
+        date: Date.now(),
+        doneNum: 0,
+        user: newUser._id,
+        intervalRef: newInterval._id
+      })
+      console.log(item)
+      const newItem = await item.save()
 
       const payload = {
         user: {

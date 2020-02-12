@@ -12,11 +12,11 @@ const Interval = require("../models/Interval")
 // @access    Private
 router.get("/", auth, async (req, res) => {
   try {
-    const intarvals = await Interval.find({ user: req.user.id })
-    res.json(intarvals)
+    const intervals = await Interval.find({ user: req.user.id })
+    res.json(intervals)
   } catch (error) {
     console.error(error.message)
-    res.status(500).send("Server Error")
+    res.status(500).send("Server Error. Could not get intervals")
   }
 })
 
@@ -37,7 +37,7 @@ router.post("/", auth, async (req, res) => {
     res.json(interval)
   } catch (error) {
     console.error(error.message)
-    res.status(500).send("Server Error Post Intervals")
+    res.status(500).send("Server Error. Could not post intervals")
   }
 })
 

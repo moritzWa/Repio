@@ -83,7 +83,6 @@ export default (state, action) => {
         items: action.payload
       }
     case CONTACT_ERROR:
-      console.log(action.payload)
       return {
         ...state,
         error: action.payload

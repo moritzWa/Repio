@@ -57,19 +57,13 @@ const Settings = () => {
   const authContext = useContext(AuthContext)
   const intervalContext = useContext(IntervalContext)
 
-  const { user, loadUser, addUserCat, deleteUserCat } = authContext
+  const { user, addUserCat, deleteUserCat } = authContext
   const {
     intervals,
     getIntervals,
     addInterval,
     deleteInterval
   } = intervalContext
-
-  useEffect(() => {
-    loadUser()
-    getIntervals()
-    // eslint-disable-next-line
-  }, [])
 
   const emptyCategory = {
     name: ""
@@ -102,6 +96,11 @@ const Settings = () => {
     addInterval(interval)
     setInterval(emptyInterval)
   }
+
+  useEffect(() => {
+    getIntervals()
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <Fragment>

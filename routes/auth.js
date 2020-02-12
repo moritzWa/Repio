@@ -66,7 +66,6 @@ router.post(
         },
         (err, token) => {
           if (err) throw err
-          console.log(res)
           res.json({ token })
           console.log(
             "succesfully responding",

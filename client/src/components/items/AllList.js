@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
 
@@ -71,7 +71,14 @@ const AllList = props => {
   }
 
   const itemContext = useContext(ItemContext)
-  const { items, sort, setCurrent, deleteItem, clearCurrent } = itemContext
+  const {
+    items,
+    getItems,
+    sort,
+    setCurrent,
+    deleteItem,
+    clearCurrent
+  } = itemContext
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deletingId, setDeletingId] = useState("")
@@ -96,6 +103,11 @@ const AllList = props => {
     scrollToTop()
     setCurrent(item)
   }
+
+  useEffect(() => {
+    getItems()
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <>

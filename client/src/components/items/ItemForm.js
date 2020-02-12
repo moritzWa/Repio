@@ -17,13 +17,10 @@ const ItemForm = () => {
   const intervalContext = useContext(IntervalContext)
   const { intervals, getIntervals } = intervalContext
 
-  useEffect(() => {
-    getIntervals()
-    // eslint-disable-next-line
-  }, [])
-
   //select last used inv through comparing
-  const lastUsedItvItemCtx = items !== null ? items[0].intervalRef : ""
+  console.log(items)
+  const lastUsedItvItemCtx =
+    items !== null && items !== [] ? items[0].intervalRef : ""
   const lastUsedItvIntervalCtx =
     intervals !== null
       ? intervals.find(itv => itv.label === lastUsedItvItemCtx.label)
@@ -116,6 +113,11 @@ const ItemForm = () => {
   })
   const classes = useStyles()
 
+  useEffect(() => {
+    setTimeout(getIntervals(), 4000)
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <Fragment>
       <Grid
@@ -176,7 +178,7 @@ const ItemForm = () => {
                     </MenuItem>
                   ))
                 ) : (
-                  <p>loading</p>
+                  <p>please reload the page</p>
                 )}
               </TextField>
               <TextField

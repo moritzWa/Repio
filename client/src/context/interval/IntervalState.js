@@ -19,6 +19,8 @@ const IntervalState = props => {
 
   // Get Intervals
   const getIntervals = async () => {
+    console.log("token put in header", localStorage.token ? true : false)
+
     try {
       const res = await axios.get("/api/intervals")
       dispatch({

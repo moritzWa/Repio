@@ -59,7 +59,6 @@ router.post(
       const itemWithIntervRef = await Item.findById(item._id).populate(
         "intervalRef"
       )
-      console.log("itemWithIntervRef", itemWithIntervRef)
       res.json(itemWithIntervRef)
     } catch (err) {
       console.error(err.message)

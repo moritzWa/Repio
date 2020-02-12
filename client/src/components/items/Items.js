@@ -1,11 +1,8 @@
-import React, { Fragment, useContext, useEffect } from "react"
+import React, { Fragment } from "react"
 import PropTypes from "prop-types"
 
 import AllList from "./AllList"
 import ToReviewList from "./ToReviewList"
-
-import ItemContext from "../../context/item/itemContext"
-
 import SwipeableViews from "react-swipeable-views"
 
 import { Typography, Paper, AppBar, Grid } from "@material-ui/core/"
@@ -71,15 +68,6 @@ const Items = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-
-  const itemContext = useContext(ItemContext)
-
-  const { getItems } = itemContext
-
-  useEffect(() => {
-    getItems()
-    // eslint-disable-next-line
-  }, [])
 
   return (
     <Fragment>
