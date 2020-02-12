@@ -137,7 +137,6 @@ const ItemState = props => {
 
   // Add Item
   const addItem = async item => {
-    console.log("starting adding/posting")
     const config = {
       headers: {
         "Content-Type": "application/json"

@@ -23,10 +23,6 @@ export default (state, action) => {
       }
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-      console.log(
-        "setting token in authReducer",
-        action.payload.token ? true : "no token"
-      )
       localStorage.setItem("token", action.payload.token)
       return {
         ...state,
@@ -38,6 +34,7 @@ export default (state, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
+      console.log("removing token again", action.payload)
       localStorage.removeItem("token")
       return {
         ...state,

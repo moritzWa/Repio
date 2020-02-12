@@ -33,7 +33,7 @@ const ItemForm = () => {
     name: "",
     date: new Date(),
     doneNum: 0,
-    intervalRef: intervals ? lastUsedItvIntervalCtx : "",
+    intervalRef: intervals !== null ? lastUsedItvIntervalCtx : "",
     category: items !== null ? items[0].category : ""
   }
 
@@ -58,7 +58,6 @@ const ItemForm = () => {
   const onSubmit = e => {
     e.preventDefault()
     if (current === null) {
-      console.log(item) //
       addItem(item)
     } else {
       updateItem(item)

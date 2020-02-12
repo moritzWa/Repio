@@ -30,18 +30,11 @@ const AuthState = props => {
 
   // Load User
   const loadUser = async () => {
-    if (localStorage.token) {
-      setAuthToken(localStorage.token)
-    }
-    console.log(
-      "token set now",
-      localStorage.token ? "token placed" : "no token passed"
-    )
-
+    setAuthToken(localStorage.token)
+    console.log("token put in header", localStorage.token ? true : false)
     try {
-      console.log("now running GET auth")
       const res = await axios.get("/api/auth")
-
+      console.log(res.data)
       dispatch({
         type: USER_LOADED,
         payload: res.data
@@ -85,6 +78,7 @@ const AuthState = props => {
 
     try {
       const res = await axios.post("/api/auth", formData, config)
+      console.log("dispatch from login", res.data)
 
       dispatch({
         type: LOGIN_SUCCESS,
@@ -102,7 +96,6 @@ const AuthState = props => {
 
   // add UserCategorie
   const addUserCat = async category => {
-    console.log("test-addUserCat", category)
     const config = {
       headers: {
         "Content-Type": "application/json"
