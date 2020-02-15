@@ -18,7 +18,6 @@ const ItemForm = () => {
   const { intervals, getIntervals } = intervalContext
 
   //select last used inv through comparing
-  console.log(items)
   const lastUsedItvItemCtx =
     items !== null && items !== [] ? items[0].intervalRef : ""
   const lastUsedItvIntervalCtx =
@@ -36,9 +35,10 @@ const ItemForm = () => {
 
   useEffect(() => {
     if (current !== null) {
-      current.intervalRef = intervals.find(
-        i => i.label === current.intervalRef.label
-      )
+      current.intervalRef =
+        intervals !== null
+          ? intervals.find(i => i.label === current.intervalRef.label)
+          : {}
       setItem(current)
     } else {
       setItem(empty)

@@ -1,7 +1,7 @@
 {
-  "name": "item-keeper",
+  "name": "Repio",
   "version": "1.0.0",
-  "description": "Item manager app",
+  "description": "Siple Spaced Repetition",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

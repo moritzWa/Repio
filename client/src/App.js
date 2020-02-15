@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Navbar from "./components/layout/Navbar"
 import Home from "./components/pages/Home"
 import About from "./components/pages/About"
+import LandingPage from "./components/pages/LandingPage"
+
 import Settings from "./components/pages/Settings"
 import Register from "./components/auth/Register"
 import Login from "./components/auth/Login"
@@ -34,7 +36,8 @@ const App = () => {
                   <Navbar />
                   <Alerts />
                   <Switch>
-                    <PrivateRoute exact path="/" component={Home} />
+                    <PrivateRoute exact path="/dashboard" component={Home} />
+                    <Route exact path="/" component={LandingPage} />
                     <Route exact path="/about" component={About} />
                     <PrivateRoute exact path="/settings" component={Settings} />
                     <Route exact path="/register" component={Register} />

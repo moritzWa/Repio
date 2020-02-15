@@ -22,7 +22,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    fontWeight: 200,
+    fontFamily: '"Helvetica Neue"'
   }
 }))
 
@@ -91,12 +93,12 @@ const Navbar = ({ title, icon }) => {
             color="inherit"
             aria-label="logo"
             component={Link}
-            to={"/"}
+            to={isAuthenticated ? "/dashboard" : "/"}
           >
             <BookIcon />
           </IconButton>
 
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h4" className={classes.title}>
             Repio
           </Typography>
           {isAuthenticated ? authLinks : guestLinks}
