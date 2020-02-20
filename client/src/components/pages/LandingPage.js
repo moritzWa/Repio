@@ -5,8 +5,9 @@ import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import Link from "@material-ui/core/Link"
-import Paper from "@material-ui/core/Paper"
+import LinkMui from "@material-ui/core/Link"
+
+import { Link } from "react-router-dom"
 
 import mockupMacbook from "./Macbookwhite.png"
 
@@ -14,9 +15,9 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <LinkMui color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{" "}
+      </LinkMui>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -70,7 +71,7 @@ const LandingPage = () => {
               color="textPrimary"
               gutterBottom
             >
-              Simple Spaced Repetition
+              We help you remember to learn
             </Typography>
             <Typography
               variant="h5"
@@ -78,20 +79,29 @@ const LandingPage = () => {
               color="textSecondary"
               paragraph
             >
-              Spaced Repetition is the best to date technique to remember
-              anything for your lifetime. This is the soundest method for
-              accelerated learning.
+              Create Reminders to apply spaced repetition to your learning
+              material and stop the forgetting curve.
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Button variant="outlined" color="primary">
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    component={Link}
+                    to={"/about"}
+                  >
                     Learn more
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Sighnup for Free
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to={"/login"}
+                  >
+                    Signup for Free
                   </Button>
                 </Grid>
               </Grid>
@@ -124,16 +134,17 @@ const LandingPage = () => {
         </Grid>
       </Grid>
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
         <Typography
           variant="subtitle1"
           align="center"
           color="textSecondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          Made with{" "}
+          <span role="img" ariaLabel="heart">
+            ❤️
+          </span>{" "}
+          in Berlin
         </Typography>
         <Copyright />
       </footer>

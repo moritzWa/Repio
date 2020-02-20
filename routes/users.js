@@ -58,12 +58,19 @@ router.post(
       //create default cat with user id
       console.log(newUser)
 
-      const interval = new Interval({
-        label: "defaultinterval",
-        value: [1, 7, 14, 28, 42, 56, 98, 196],
+      const interval1 = new Interval({
+        label: "Longterm",
+        value: [7, 14, 24, 35, 49, 84, 140, 231, 371],
         user: newUser._id
       })
-      const newInterval = await interval.save()
+      const newInterval = await interval1.save()
+
+      const interval2 = new Interval({
+        label: "Shortterm",
+        value: [3, 7, 14, 28, 42, 56, 98, 196],
+        user: newUser._id
+      })
+      await interval2.save()
 
       //create example item
       const item = new Item({
@@ -75,7 +82,7 @@ router.post(
         intervalRef: newInterval._id
       })
       console.log(item)
-      const newItem = await item.save()
+      await item.save()
 
       const payload = {
         user: {
@@ -83,17 +90,10 @@ router.post(
         }
       }
 
-      jwt.sign(
-        payload,
-        config.get("jwtSecret"),
-        {
-          expiresIn: 360000
-        },
-        (err, token) => {
-          if (err) throw err
-          res.json({ token })
-        }
-      )
+      jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
+        if (err) throw err
+        res.json({ token })
+      })
     } catch (err) {
       console.error(err.message)
       res.status(500).send("Server Error")

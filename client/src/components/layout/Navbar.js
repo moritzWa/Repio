@@ -42,6 +42,8 @@ const Navbar = ({ title, icon }) => {
     // eslint-disable-next-line
   }, [])
 
+  console.log(isAuthenticated)
+
   const onLogout = () => {
     logout()
     clearItems()
@@ -83,21 +85,37 @@ const Navbar = ({ title, icon }) => {
     </Fragment>
   )
 
+  const guestIconButton = (
+    <IconButton
+      edge="start"
+      className={classes.menuButton}
+      color="inherit"
+      aria-label="logo"
+      component={Link}
+      to={"/"}
+    >
+      <BookIcon />
+    </IconButton>
+  )
+
+  const iconButton = (
+    <IconButton
+      edge="start"
+      className={classes.menuButton}
+      color="inherit"
+      aria-label="logo"
+      component={Link}
+      to={"/dashboard"}
+    >
+      <BookIcon />
+    </IconButton>
+  )
+
   return (
     <Fragment>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="logo"
-            component={Link}
-            to={isAuthenticated ? "/dashboard" : "/"}
-          >
-            <BookIcon />
-          </IconButton>
-
+          {isAuthenticated ? iconButton : guestIconButton}
           <Typography variant="h4" className={classes.title}>
             Repio
           </Typography>

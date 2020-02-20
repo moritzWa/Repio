@@ -18,8 +18,10 @@ const ItemForm = () => {
   const { intervals, getIntervals } = intervalContext
 
   //select last used inv through comparing
+
   const lastUsedItvItemCtx =
-    items !== null && items !== [] ? items[0].intervalRef : ""
+    items !== null && items !== [] ? items[items.length - 1].intervalRef : ""
+
   const lastUsedItvIntervalCtx =
     intervals !== null
       ? intervals.find(itv => itv.label === lastUsedItvItemCtx.label)
@@ -114,9 +116,11 @@ const ItemForm = () => {
   const classes = useStyles()
 
   useEffect(() => {
-    setTimeout(getIntervals(), 4000)
+    getIntervals()
     // eslint-disable-next-line
-  }, [])
+  }, [user])
+
+  console.log(intervals)
 
   return (
     <Fragment>
