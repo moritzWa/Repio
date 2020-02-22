@@ -1,107 +1,174 @@
 import React from "react"
-
+import Grid from "@material-ui/core/Grid"
+import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
-const useStyles = makeStyles({
-  root: {
-    borderRadius: 0,
-    margin: "none",
-    padding: "15px",
-    border: "none"
-  },
-  settingArea: {
-    maxWidth: "500px",
-    borderRadius: 0,
-    margin: "none",
-    border: "none",
-    boxShadow: "none"
-  },
-  settingItem: {
-    padding: "10px",
-    alignItems: "left"
-  },
-  menuItem: {
-    fontWeight: "bold",
-    padding: "15px 0"
-  },
-  menuSubItem: {
-    fontSize: "14px",
-    paddingBottom: "5px",
-    fontWeight: "bolder",
-    padding: "15px 0",
-    color: "#4071BC"
-  },
-  label: {
-    fontSize: "14px",
-    display: "inline-block",
-    padding: "15px 0px 10px 10px",
-    minWidth: "230px",
+import CssBaseline from "@material-ui/core/CssBaseline"
+import Button from "@material-ui/core/Button"
+import Container from "@material-ui/core/Container"
 
-    fontWeight: "regular"
+import CardMedia from "@material-ui/core/CardMedia"
+
+import { Link } from "react-router-dom"
+
+import mockupMacbook from "./Macbookwhite.png"
+
+const useStyles = makeStyles(theme => ({
+  icon: {
+    marginRight: theme.spacing(2)
   },
-  FormItemSelect: {
-    width: "100px"
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6)
   },
-  settingTool: {
-    display: "inline-block",
-    maxWidth: "100px"
+  heroButtons: {
+    marginTop: theme.spacing(4)
   },
-  addCategoryForm: {
-    minWidth: "200px",
-    maxHeight: "40px"
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6)
   },
-  addCategoryFormInput: { maxWidth: "110px", marginRight: "20px" },
-  chips: {
-    flexWrap: "wrap",
-    display: "inline-block"
+  mockup1: {
+    textAlign: "center",
+    alignItems: "center"
   },
-  chip: {
-    margin: 2
+  mockup1text: {
+    textAlign: "center",
+    padding: "5rem"
   },
-  divider: {
-    margin: "15px"
+  text: {
+    textAlign: "left",
+    padding: "5rem"
   },
-  dividerBig: {
-    width: "100%",
-    margin: "20px 0",
-    padding: ".3px"
+  videoexplaination: {
+    textAlign: "center",
+    maxHeight: "60%"
   },
-  videoEmbed: {
-    width: "100%",
-    height: "275px"
+  img: {
+    position: "relative",
+    maxWidth: "100%"
   }
-})
+}))
+
 const About = () => {
   const classes = useStyles()
 
   return (
-    <div>
-      <h1>Repio</h1>
-      <p className="my-1">Keep the knowledge you gained</p>
-      <p className="my-1">Sales copy: TBD</p>
-
-      <div className={classes.menuItem}>About</div>
-      <div className={classes.label}>What is Spaced Repitition?</div>
-      <div>video link turned of cuz of chrome dev tools warning</div>
-      <iframe
-        className={classes.videoEmbed}
-        src="https://www.youtube.com/embed/cVf38y07cfk"
-        frameBorder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="Spaced Repititon"
-      ></iframe>
-      <div className={classes.label}>
-        <a
-          href="https://en.wikipedia.org/wiki/Spaced_repetition"
-          target="_blank"
-          rel="noopener noreferrer"
+    <React.Fragment>
+      <CssBaseline />
+      <main>
+        {/* Hero unit */}
+        <div className={classes.heroContent}>
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h5"
+              align="center"
+              color="textPrimary"
+              gutterBottom
+            >
+              No flashcards. Just reminders.
+            </Typography>
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
+              Spaced repetition is an evidence-based learning technique that is
+              usually performed with flashcards. Using this technique for more
+              complex topics is not easy. Repio provides a simple tool to do so
+              without flashcards.
+            </Typography>
+          </Container>
+        </div>
+      </main>
+      {/* Footer */}
+      <Grid container justify="center" alignItems="center" xs={12}>
+        <Grid
+          item
+          className={classes.videoexplaination}
+          xs={10}
+          sm={9}
+          md={8}
+          lg={6}
         >
-          Wikipedia
-        </a>
-      </div>
-      <button>Try it out now</button>
-    </div>
+          <CardMedia
+            component="iframe"
+            height="400"
+            image="https://www.youtube.com/embed/cVf38y07cfk"
+            title="spaced repetition explaination"
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container justify="center" alignItems="center" xs={12}>
+        <Grid item className={classes.text} xs={12} sm={6}>
+          <Typography variant="body1">
+            The notion that spaced repetition could be used for improving
+            learning was first proposed in the book Psychology of Study by Prof.
+            C. A. Mace in 1932: "Perhaps the most important discoveries are
+            those which relate to the appropriate distribution of the periods of
+            study...Acts of revision should be spaced in gradually increasing
+            intervals, roughly intervals of one day, two days, four days, eight
+            days, and so on."
+          </Typography>
+        </Grid>
+        <Grid item className={classes.text} xs={12} sm={6}>
+          <Typography variant="body1">
+            Spaced repetition is typically studied through the use of memorizing
+            facts. Traditionally speaking, it has not been applied to fields
+            that required some manipulation or thought beyond simple
+            factual/semantic information. A more recent study has shown that
+            spaced repetition can benefit tasks such as solving math problems.
+          </Typography>
+        </Grid>
+        <Grid item className={classes.mockup1} xs={12} sm={6}>
+          <img
+            src={mockupMacbook}
+            alt="Mockup of webapp"
+            className={classes.img}
+          ></img>
+        </Grid>
+      </Grid>
+      <footer className={classes.footer}>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          Made with{" "}
+          <span role="img" ariaLabel="heart">
+            ❤️
+          </span>{" "}
+          in Berlin
+        </Typography>
+      </footer>
+      {/* End footer */}
+    </React.Fragment>
   )
 }
 
 export default About
+
+{
+  /* <Grid item className={classes.mockup1} xs={12} sm={6}>
+          <img alt="Mockup of webapp" className={classes.img}></img>
+        </Grid>
+        <p className="my-1">Keep the knowledge you gained</p>
+        <p className="my-1">Sales copy: TBD</p>
+        <div className={classes.menuItem}>About</div>
+        <div className={classes.label}>What is Spaced Repitition?</div>
+        <div>video link turned of cuz of chrome dev tools warning</div>
+        
+        <div className={classes.label}>
+          <a
+            href="https://en.wikipedia.org/wiki/Spaced_repetition"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikipedia
+          </a>
+        </div>
+        <button>Try it out now</button> */
+}

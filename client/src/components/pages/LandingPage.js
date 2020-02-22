@@ -10,15 +10,13 @@ import LinkMui from "@material-ui/core/Link"
 import { Link } from "react-router-dom"
 
 import mockupMacbook from "./Macbookwhite.png"
+import repioexplaination from "./repioexplaination.png"
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <LinkMui color="inherit" href="https://material-ui.com/">
-        Your Website
-      </LinkMui>{" "}
-      {new Date().getFullYear()}
+      <LinkMui color="inherit">Repio UG</LinkMui> {new Date().getFullYear()}
       {"."}
     </Typography>
   )
@@ -43,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     alignItems: "center"
   },
-  mockup1text: {
+  pageitem: {
     textAlign: "center",
     padding: "5rem"
   },
@@ -109,7 +107,14 @@ const LandingPage = () => {
           </Container>
         </div>
       </main>
-      {/* Footer */}
+      <Grid item className={classes.pageitem} xs={12} sm={12}>
+        <img
+          src={repioexplaination}
+          alt="Mockup of webapp"
+          className={classes.img}
+        ></img>
+      </Grid>
+
       <Grid
         className={classes.root}
         container
@@ -117,7 +122,7 @@ const LandingPage = () => {
         alignItems="center"
         xs={12}
       >
-        <Grid item className={classes.mockup1text} xs={12} sm={6}>
+        <Grid item className={classes.pageitem} xs={12} sm={6}>
           <Typography>
             {" "}
             The most <b>simple</b> spaced repetition App you have ever seen.
@@ -125,7 +130,7 @@ const LandingPage = () => {
             <b>and other forms of knowledge</b> you want to learn.{" "}
           </Typography>
         </Grid>
-        <Grid item className={classes.mockup1} xs={12} sm={6}>
+        <Grid item className={classes.mockup1} xs={12} sm={6} padding="1rem">
           <img
             src={mockupMacbook}
             alt="Mockup of webapp"
