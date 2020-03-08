@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
   img: {
     position: "relative",
-    maxWidth: "100%"
+    maxWidth: "80Γ%"
   }
 }))
 
