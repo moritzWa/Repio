@@ -11,7 +11,7 @@ Create default.json and production.json in config folder with:
 
 ```
 {
-  "mongoURI": "mongodb+srv://Username:Password@contactkeeper-2lvqs.mongodb.net/test?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://Username:Password@mongoDBCollectionName.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "secret"
 }
 ```

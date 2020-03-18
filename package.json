@@ -1,5 +1,5 @@
 {
-  "name": "Repio",
+  "name": "repio",
   "version": "1.0.0",
   "description": "Siple Spaced Repetition",
   "main": "server.js",
