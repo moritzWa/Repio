@@ -3,50 +3,47 @@ import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import Button from "@material-ui/core/Button"
 import Container from "@material-ui/core/Container"
 
 import CardMedia from "@material-ui/core/CardMedia"
 
-import { Link } from "react-router-dom"
-
 import mockupMacbook from "./Macbookwhite.png"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   icon: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6)
+    padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6)
+    padding: theme.spacing(6),
   },
   mockup1: {
     textAlign: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   mockup1text: {
     textAlign: "center",
-    padding: "5rem"
+    padding: "5rem",
   },
   text: {
     textAlign: "left",
-    padding: "5rem"
+    padding: "5rem",
   },
   videoexplaination: {
     textAlign: "center",
-    maxHeight: "60%"
+    maxHeight: "60%",
   },
   img: {
     position: "relative",
-    maxWidth: "100%"
-  }
+    maxWidth: "100%",
+  },
 }))
 
 const About = () => {
@@ -150,25 +147,3 @@ const About = () => {
 }
 
 export default About
-
-{
-  /* <Grid item className={classes.mockup1} xs={12} sm={6}>
-          <img alt="Mockup of webapp" className={classes.img}></img>
-        </Grid>
-        <p className="my-1">Keep the knowledge you gained</p>
-        <p className="my-1">Sales copy: TBD</p>
-        <div className={classes.menuItem}>About</div>
-        <div className={classes.label}>What is Spaced Repitition?</div>
-        <div>video link turned of cuz of chrome dev tools warning</div>
-        
-        <div className={classes.label}>
-          <a
-            href="https://en.wikipedia.org/wiki/Spaced_repetition"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Wikipedia
-          </a>
-        </div>
-        <button>Try it out now</button> */
-}

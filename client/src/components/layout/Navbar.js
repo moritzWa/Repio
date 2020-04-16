@@ -14,18 +14,18 @@ import IconButton from "@material-ui/core/IconButton"
 import BookIcon from "@material-ui/icons/Book"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
     fontWeight: 200,
-    fontFamily: '"Helvetica Neue"'
-  }
+    fontFamily: '"Helvetica Neue"',
+  },
 }))
 
 const Navbar = ({ title, icon }) => {
@@ -41,8 +41,6 @@ const Navbar = ({ title, icon }) => {
     loadUser()
     // eslint-disable-next-line
   }, [])
-
-  console.log(isAuthenticated)
 
   const onLogout = () => {
     logout()

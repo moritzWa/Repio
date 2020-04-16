@@ -14,16 +14,16 @@ import {
   CLEAR_ERRORS,
   DELETE_CATEGORY,
   CATEGORY_ERROR,
-  ADD_CATEGORY
+  ADD_CATEGORY,
 } from "../types"
 
-const AuthState = props => {
+const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
     loading: true,
     user: null,
-    error: null
+    error: null,
   }
 
   const [state, dispatch] = useReducer(authReducer, initialState)
@@ -31,13 +31,11 @@ const AuthState = props => {
   // Load User
   const loadUser = async () => {
     setAuthToken(localStorage.token)
-    console.log("token put in header", localStorage.token ? true : false)
     try {
       const res = await axios.get("/api/auth")
-      console.log(res.data)
       dispatch({
         type: USER_LOADED,
-        payload: res.data
+        payload: res.data,
       })
     } catch (err) {
       dispatch({ type: AUTH_ERROR })
@@ -45,35 +43,35 @@ const AuthState = props => {
   }
 
   // Register User
-  const register = async formData => {
+  const register = async (formData) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }
 
     try {
       const res = await axios.post("/api/users", formData, config)
       dispatch({
         type: REGISTER_SUCCESS,
-        payload: res.data
+        payload: res.data,
       })
 
       loadUser()
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       })
     }
   }
 
   // Login User
-  const login = async formData => {
+  const login = async (formData) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }
 
     try {
@@ -82,24 +80,24 @@ const AuthState = props => {
 
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: res.data
+        payload: res.data,
       })
 
       loadUser()
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.response.data.msg
+        payload: err.response.data.msg,
       })
     }
   }
 
   // add UserCategorie
-  const addUserCat = async category => {
+  const addUserCat = async (category) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }
     try {
       const res = await axios.put(
@@ -111,17 +109,17 @@ const AuthState = props => {
     } catch (err) {
       dispatch({
         type: CATEGORY_ERROR,
-        payload: err.response.msg
+        payload: err.response.msg,
       })
     }
   }
 
   // delete UserCategorie
-  const deleteUserCat = async category => {
+  const deleteUserCat = async (category) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }
     try {
       const res = await axios.put(
@@ -136,7 +134,7 @@ const AuthState = props => {
     } catch (err) {
       dispatch({
         type: CATEGORY_ERROR,
-        payload: err.response.msg
+        payload: err.response.msg,
       })
     }
   }
@@ -161,7 +159,7 @@ const AuthState = props => {
         logout,
         clearErrors,
         addUserCat,
-        deleteUserCat
+        deleteUserCat,
       }}
     >
       {props.children}

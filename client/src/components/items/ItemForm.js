@@ -24,7 +24,7 @@ const ItemForm = () => {
 
   const lastUsedItvIntervalCtx =
     intervals !== null
-      ? intervals.find(itv => itv.label === lastUsedItvItemCtx.label)
+      ? intervals.find((itv) => itv.label === lastUsedItvItemCtx.label)
       : ""
 
   const empty = {
@@ -32,14 +32,14 @@ const ItemForm = () => {
     date: new Date(),
     doneNum: 0,
     intervalRef: intervals !== null ? lastUsedItvIntervalCtx : "",
-    category: items !== null ? items[0].category : ""
+    category: items !== null ? items[0].category : "",
   }
 
   useEffect(() => {
     if (current !== null) {
       current.intervalRef =
         intervals !== null
-          ? intervals.find(i => i.label === current.intervalRef.label)
+          ? intervals.find((i) => i.label === current.intervalRef.label)
           : {}
       setItem(current)
     } else {
@@ -52,9 +52,9 @@ const ItemForm = () => {
 
   const { name, date, doneNum, intervalRef, category } = item
 
-  const onChange = e => setItem({ ...item, [e.target.name]: e.target.value })
+  const onChange = (e) => setItem({ ...item, [e.target.name]: e.target.value })
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault()
     if (current === null) {
       addItem(item)
@@ -68,7 +68,7 @@ const ItemForm = () => {
     clearCurrent()
   }
 
-  const formatDate = date => {
+  const formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
@@ -82,36 +82,36 @@ const ItemForm = () => {
 
   const useStyles = makeStyles({
     root: {
-      backgroundColor: "#cfd8dc"
+      backgroundColor: "#cfd8dc",
     },
     FormPaper: {
       margin: "1rem",
       backgroundColor: "white",
       padding: "1.5rem",
       textAlign: "center",
-      borderRadius: "20px"
+      borderRadius: "20px",
     },
     FormItem: {
-      margin: "10px"
+      margin: "10px",
     },
     FormItemDate: {
       margin: "10px",
-      width: "140px"
+      width: "140px",
     },
     FormItemReviews: {
       margin: "10px",
-      width: "50px"
+      width: "50px",
     },
     FormItemSelect: {
       margin: "10px",
-      width: "100px"
+      width: "100px",
     },
     submitButton: {
-      margin: "20px 10px"
+      margin: "20px 10px",
     },
     menu: {
-      width: 200
-    }
+      width: 200,
+    },
   })
   const classes = useStyles()
 
@@ -119,8 +119,6 @@ const ItemForm = () => {
     getIntervals()
     // eslint-disable-next-line
   }, [user])
-
-  console.log(intervals)
 
   return (
     <Fragment>
@@ -161,7 +159,7 @@ const ItemForm = () => {
                 label="Date added"
                 type="date"
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 onChange={onChange}
               />
@@ -176,7 +174,7 @@ const ItemForm = () => {
                 onChange={onChange}
               >
                 {intervals !== null ? (
-                  intervals.map(option => (
+                  intervals.map((option) => (
                     <MenuItem key={option._id} value={option}>
                       {option.label}
                     </MenuItem>
@@ -194,7 +192,7 @@ const ItemForm = () => {
                 select
               >
                 {user !== null ? (
-                  user.categories.map(option => (
+                  user.categories.map((option) => (
                     <MenuItem key={option._id} value={option.name}>
                       {option.name}
                     </MenuItem>
