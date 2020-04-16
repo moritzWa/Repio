@@ -14,16 +14,16 @@ import {
   CLEAR_FILTER,
   CONTACT_ERROR,
   UPDATE_CONTACT_DONENUM,
-  SORT_ITEMS
+  SORT_ITEMS,
 } from "../types"
 
-const ItemState = props => {
+const ItemState = (props) => {
   const initialState = {
     items: null,
     current: null,
     filtered: null,
     error: null,
-    filteredItems: null
+    filteredItems: null,
   }
 
   const [state, dispatch] = useReducer(itemReducer, initialState)
@@ -35,36 +35,37 @@ const ItemState = props => {
 
       dispatch({
         type: GET_CONTACTS,
-        payload: res.data
+        payload: res.data,
       })
     } catch (err) {
       dispatch({
         type: CONTACT_ERROR,
-        payload: err.response.msg
+        payload: err.response.msg,
       })
     }
   }
 
   const expandInfo = () => {
+    console.log("running expant with:", state.items)
     // Expand item Information
     if (state.items !== null && state.items !== undefined) {
-      //Interval info
-      state.items.map(i =>
+      //Interval default info
+      state.items.map((i) =>
         i.interval === "Longterm"
           ? (i.interval = {
               value: [1, 7, 14, 28, 56, 112, 224, 448],
-              label: "Longterm"
+              label: "Longterm",
             })
           : (i.interval = {
               value: [1, 4, 7, 10, 14, 21, 28, 38],
-              label: "Shortterm"
+              label: "Shortterm",
             })
       )
 
       //Reps info
 
       //setup structure logic
-      const createRepsStructure = usedInterval => {
+      const createRepsStructure = (usedInterval) => {
         let repsArrayStructure = []
 
         for (let i = 0; i < usedInterval.length; i++) {
@@ -80,23 +81,18 @@ const ItemState = props => {
         return result
       }
 
-      //fill structure
+      //todo does not work if not both intervalRef.value and interval.value available
+
       state.items.map(
-        i =>
+        (i) =>
           (i.reps = createRepsStructure(
             i.intervalRef.value || i.interval.value
           ))
       )
 
-      state.items.map(i =>
+      state.items.map((i) =>
         i.reps.map(
-          /* r =>
-          (r = {
-            ...r,
-            isDone: i.doneNum >= r.Nr ? true : false,
-            date: addDays(i.date, r.distence)
-          }) */
-          r => (
+          (r) => (
             // eslint-disable-next-line
             (r.isDone = i.doneNum >= r.Nr ? true : false),
             (r.date = addDays(i.date, r.distence))
@@ -106,12 +102,12 @@ const ItemState = props => {
     }
 
     //get distence of overdo rep
-    const createOverDoDays = item => {
+    const createOverDoDays = (item) => {
       //tbd correct formular
       // Expected return after arrow function
 
       // eslint-disable-next-line
-      let overDoReps = item.reps.filter(rep => {
+      let overDoReps = item.reps.filter((rep) => {
         if (!rep.isDone && rep.date < new Date()) {
           return rep
         }
@@ -125,7 +121,7 @@ const ItemState = props => {
     }
 
     if (state.items !== null) {
-      state.items.map(i => (i.overDoDays = createOverDoDays(i)))
+      state.items.map((i) => (i.overDoDays = createOverDoDays(i)))
     }
   }
 
@@ -136,11 +132,11 @@ const ItemState = props => {
   //======================= API CRUD =========================//
 
   // Add Item
-  const addItem = async item => {
+  const addItem = async (item) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }
 
     try {
@@ -148,30 +144,30 @@ const ItemState = props => {
 
       dispatch({
         type: ADD_CONTACT,
-        payload: res.data
+        payload: res.data,
       })
     } catch (err) {
       console.log(err.response)
       dispatch({
         type: CONTACT_ERROR,
-        payload: err.response.msg
+        payload: err.response.msg,
       })
     }
   }
 
   // Delete Item
-  const deleteItem = async id => {
+  const deleteItem = async (id) => {
     try {
       await axios.delete(`/api/items/${id}`)
 
       dispatch({
         type: DELETE_CONTACT,
-        payload: id
+        payload: id,
       })
     } catch (err) {
       dispatch({
         type: CONTACT_ERROR,
-        payload: err.response.msg
+        payload: err.response.msg,
       })
     }
   }
@@ -183,12 +179,12 @@ const ItemState = props => {
   } */
 
   // Increment DoneNum
-  const incrementDoneNum = async item => {
+  const incrementDoneNum = async (item) => {
     console.log("running incrementing in Item State", item)
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }
     try {
       const res = await axios.put(
@@ -199,34 +195,34 @@ const ItemState = props => {
 
       dispatch({
         type: UPDATE_CONTACT_DONENUM,
-        payload: res.data
+        payload: res.data,
       })
     } catch (err) {
       dispatch({
         type: CONTACT_ERROR,
-        payload: err.response.msg
+        payload: err.response.msg,
       })
     }
   }
 
   // Update Item
-  const updateItem = async item => {
+  const updateItem = async (item) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }
     try {
       const res = await axios.put(`/api/items/${item._id}`, item, config)
 
       dispatch({
         type: UPDATE_CONTACT,
-        payload: res.data
+        payload: res.data,
       })
     } catch (err) {
       dispatch({
         type: CONTACT_ERROR,
-        payload: err.response.msg
+        payload: err.response.msg,
       })
     }
   }
@@ -237,7 +233,7 @@ const ItemState = props => {
   }
 
   // Set Current Item
-  const setCurrent = item => {
+  const setCurrent = (item) => {
     dispatch({ type: SET_CURRENT, payload: item })
   }
 
@@ -247,7 +243,7 @@ const ItemState = props => {
   }
 
   // Filter Items
-  const filterItems = text => {
+  const filterItems = (text) => {
     dispatch({ type: FILTER_CONTACTS, payload: text })
   }
 
@@ -260,7 +256,7 @@ const ItemState = props => {
 
   //double logic could be shortened
   const compareValues = (key, order = "asc") => {
-    return function(a, b) {
+    return function (a, b) {
       if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
         return 0
       }
@@ -294,7 +290,7 @@ const ItemState = props => {
 
   const [isAsc, setDirectionToggler] = useState(true)
 
-  const sort = key => {
+  const sort = (key) => {
     //create direction variable
     let direction = isAsc ? "asc" : "desc"
     //change sorting
@@ -311,10 +307,10 @@ const ItemState = props => {
   //======================= Filter for ToReview Locic =========================//
 
   //finnd item that has overdo reps
-  const filterOverDoItems = items => {
+  const filterOverDoItems = (items) => {
     let filteredArray = []
-    items.forEach(element => {
-      element.reps.forEach(rep => {
+    items.forEach((element) => {
+      element.reps.forEach((rep) => {
         if (
           !rep.isDone &&
           rep.date < new Date() &&
@@ -349,7 +345,7 @@ const ItemState = props => {
         clearFilter,
         getItems,
         clearItems,
-        sort
+        sort,
       }}
     >
       {props.children}

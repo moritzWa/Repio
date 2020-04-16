@@ -22,33 +22,33 @@ function Copyright() {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   icon: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6)
+    padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6)
+    padding: theme.spacing(6),
   },
   mockup1: {
     textAlign: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   pageitem: {
     textAlign: "center",
-    padding: "5rem"
+    padding: "5rem",
   },
   img: {
     position: "relative",
-    maxWidth: "80%"
-  }
+    maxWidth: "80%",
+  },
 }))
 
 const LandingPage = () => {
@@ -145,11 +145,7 @@ const LandingPage = () => {
           color="textSecondary"
           component="p"
         >
-          Made with{" "}
-          <span role="img" ariaLabel="heart">
-            ❤️
-          </span>{" "}
-          in Berlin
+          Made with love in Berlin
         </Typography>
         <Copyright />
       </footer>

@@ -134,11 +134,7 @@ const About = () => {
           color="textSecondary"
           component="p"
         >
-          Made with{" "}
-          <span role="img" ariaLabel="heart">
-            ❤️
-          </span>{" "}
-          in Berlin
+          Made with love in Berlin
         </Typography>
       </footer>
       {/* End footer */}
