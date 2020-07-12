@@ -28,37 +28,37 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 }
 
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`
+    "aria-controls": `full-width-tabpanel-${index}`,
   }
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "70.25vh",
-    overflow: "auto"
+    overflow: "auto",
   },
   appBar2: {
     justifyContent: "center",
-    textTransform: "none"
+    textTransform: "none",
   },
   MuiTabs: {
-    textTransform: "none"
+    textTransform: "none",
   },
   pageContent: {
-    display: "flex"
+    display: "flex",
   },
   paddingTabEl: {
     "& > div": {
       padding: "10px",
-      borderRadius: "0 0 5px 5px"
-    }
-  }
+      borderRadius: "0 0 5px 5px",
+    },
+  },
 }))
 
 const Items = () => {

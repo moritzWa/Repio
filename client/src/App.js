@@ -18,7 +18,7 @@ import AlertState from "./context/alert/AlertState"
 import setAuthToken from "./utils/setAuthToken"
 
 import { Paper } from "@material-ui/core"
-import "./App2.css"
+import "./App.css"
 
 if (localStorage.token) {
   setAuthToken(localStorage.token)
