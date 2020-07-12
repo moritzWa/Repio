@@ -9,7 +9,7 @@ import {
   CLEAR_ERRORS,
   ADD_CATEGORY,
   DELETE_CATEGORY,
-  CATEGORY_ERROR
+  CATEGORY_ERROR,
 } from "../types"
 
 export default (state, action) => {
@@ -19,7 +19,7 @@ export default (state, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: action.payload
+        user: action.payload,
       }
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -28,21 +28,22 @@ export default (state, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        loading: false
+        loading: false,
       }
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
       console.log("removing token again", action.payload)
-      localStorage.removeItem("token")
+      //localStorage.removeItem("token")
+      //TODO investig
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: action.payload
+        error: action.payload,
       }
     case ADD_CATEGORY:
       console.log("starting to add new category", action.payload)
@@ -50,8 +51,8 @@ export default (state, action) => {
         ...state,
         user: {
           ...state.user,
-          categories: [...state.user.categories, action.payload]
-        }
+          categories: [...state.user.categories, action.payload],
+        },
       }
     case DELETE_CATEGORY:
       console.log("startign to update categories array")
@@ -60,20 +61,20 @@ export default (state, action) => {
         user: {
           ...state.user,
           categories: state.user.categories.filter(
-            categories => categories._id !== action.payload
-          )
-        }
+            (categories) => categories._id !== action.payload
+          ),
+        },
       }
     case CATEGORY_ERROR:
       console.log("starting to delet categories obj")
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       }
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null
+        error: null,
       }
     default:
       return state

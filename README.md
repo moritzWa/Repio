@@ -1,5 +1,18 @@
 Repio
 
+Thinks to fix/investigate
+
+- [0] login removes token
+
+token is removen in authReducer after this case is triggered
+```
+case REGISTER_FAIL:
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT
+```
+
+
 Install dependencies
 
 ```bash
@@ -7,13 +20,11 @@ npm install
 npm client-install
 ```
 
-Create default.json and production.json in config folder with:
+Create config.env
 
 ```
-{
-  "mongoURI": "mongodb+srv://Username:Password@mongoDBCollectionName.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "secret"
-}
+MONGO_URI='...'
+SECRET_KEY='...'
 ```
 
 ### Run Server
