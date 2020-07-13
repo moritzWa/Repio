@@ -1,4 +1,8 @@
-import React from "react"
+import React, { useContext } from "react"
+import { Link } from "react-router-dom"
+
+import AuthContext from "../../context/auth/authContext"
+
 import Button from "@material-ui/core/Button"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Grid from "@material-ui/core/Grid"
@@ -6,8 +10,6 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
 import LinkMui from "@material-ui/core/Link"
-
-import { Link } from "react-router-dom"
 
 import mockupMacbook from "./Macbookwhite.png"
 import repioexplaination from "./repioexplaination.png"
@@ -54,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
 const LandingPage = () => {
   const classes = useStyles()
 
+  const authContext = useContext(AuthContext)
+  const { isAuthenticated } = authContext
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -97,9 +102,9 @@ const LandingPage = () => {
                     variant="contained"
                     color="primary"
                     component={Link}
-                    to={"/login"}
+                    to={isAuthenticated ? "/dashboard" : "/register"}
                   >
-                    Signup for Free
+                    {isAuthenticated ? "View your items" : "Signup for Free"}
                   </Button>
                 </Grid>
               </Grid>
