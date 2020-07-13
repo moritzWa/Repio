@@ -6,7 +6,7 @@ import AuthContext from "../../context/auth/authContext"
 import { Grid, TextField, Paper, Button, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
-const Register = props => {
+const Register = (props) => {
   const alertContext = useContext(AlertContext)
   const authContext = useContext(AuthContext)
 
@@ -16,7 +16,7 @@ const Register = props => {
   useEffect(() => {
     //redirecting to dashboard
     if (isAuthenticated) {
-      props.history.push("/")
+      props.history.push("/dashboard")
     }
 
     if (error === "User already exists") {
@@ -30,14 +30,14 @@ const Register = props => {
     name: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
   })
 
   const { name, email, password, password2 } = user
 
-  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value })
+  const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value })
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault()
     if (name === "" || email === "" || password === "") {
       setAlert("Please enter all fields", "danger")
@@ -47,21 +47,21 @@ const Register = props => {
       register({
         name,
         email,
-        password
+        password,
       })
     }
   }
 
   useEffect(() => {
     if (error !== null && error !== undefined) {
-      alert(error)
+      console.log(error)
     }
   }, [error])
 
   const useStyles = makeStyles({
     root: {
       height: "100vh",
-      backgroundColor: "#cfd8dc"
+      backgroundColor: "#cfd8dc",
     },
     FormPaper: {
       marginTop: "5rem",
@@ -70,14 +70,14 @@ const Register = props => {
       backgroundColor: "white",
       padding: "2rem",
       textAlign: "center",
-      borderRadius: "20px"
+      borderRadius: "20px",
     },
     FormItem: {
-      margin: "10px"
+      margin: "10px",
     },
     LoginHeader: {
-      margin: "2rem"
-    }
+      margin: "2rem",
+    },
   })
   const classes = useStyles()
 

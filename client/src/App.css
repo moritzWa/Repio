@@ -5,8 +5,8 @@
   --primary-color: #728f8f;
   --dark-color: #223d5a;
   --light-color: ;
-  --danger-color: #d6752b;
-  --success-color: #6c915d;
+  --danger-color: #ebc284;
+  --success-color: #8bbb78;
 }
 
 * {
@@ -123,59 +123,10 @@ ul {
 
 .alert {
   padding: 0.7rem;
-  margin: 1rem 0;
+  margin: 2rem 0;
   opacity: 0.9;
   background: var(--light-color);
   color: #333;
-}
-
-.btn-primary,
-.bg-primary,
-.badge-primary,
-.alert-primary {
-  background: var(--primary-color);
-  color: #fff;
-}
-
-.btn-light,
-.bg-light,
-.badge-light,
-.alert-light {
-  background: var(--light-color);
-  color: #333;
-}
-
-.btn-dark,
-.bg-dark,
-.badge-dark,
-.alert-dark {
-  background: var(--dark-color);
-  color: #fff;
-}
-
-.btn-danger,
-.bg-danger,
-.badge-danger,
-.alert-danger {
-  background: var(--danger-color);
-  color: #fff;
-}
-
-.btn-success,
-.bg-success,
-.badge-success,
-.alert-success {
-  background: var(--success-color);
-  color: #fff;
-}
-
-.btn-white,
-.bg-white,
-.badge-white,
-.alert-white {
-  background: #fff;
-  color: #333;
-  border: #ccc solid 1px;
 }
 
 .btn:hover {
@@ -197,27 +148,6 @@ ul {
   margin-top: 0.3rem;
   color: #888;
 }
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"],
-input[type="number"],
-select,
-textarea {
-  /*  display: block;
-  width: 100%; */
-  /* padding: 0.4rem;
-  font-size: 0.8rem; */
-}
-
-/* .form-group {
-  margin: 1.2rem 0;
-}
-
-.form-group input {
-  margin: 0.2rem 0;
-} */
 
 table th,
 table td {

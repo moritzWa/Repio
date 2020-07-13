@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Navbar = ({ title, icon }) => {
+const Navbar = (props) => {
   const classes = useStyles()
 
   const authContext = useContext(AuthContext)
