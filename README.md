@@ -4,7 +4,7 @@ a simple spaced repetition reminder app
 
 <div align="center">
 
-[![Spectrum](./client/src/components/pages/Macbookwhite.png)](https://spectrum.chat)
+[![Spectrum](./client/src/components/pages/Macbookwhite.png)](https://repio.app)
 
 ### The simplest spaced repetition reminder app.
 
@@ -31,7 +31,7 @@ The default Intervals (in days) are:
 "Shortterm": [3, 7, 14, 28, 42, 56, 98, 196]
 ```
 
-You can also create categories to organize your items. We recommend to schedule blocks of time to review items batched by one category to maintain a low [context switching cost](https://www.psychologytoday.com/us/blog/brain-wise/201209/the-true-cost-multi-tasking). You can create new intervals and categories in the SETTING section.
+You can also create categories to organize your items. Recommended is schedule blocks of time to review items batched by one category to maintain a low [context switching cost](https://www.psychologytoday.com/us/blog/brain-wise/201209/the-true-cost-multi-tasking). You can create new intervals and categories in the SETTING section.
 
 ### Demo
 
@@ -72,9 +72,9 @@ npm run client  # React Client Only :3000
 
 With the ground rules out of the way, let's talk about the coarse architecture of this mono repo:
 
-- **Full-stack JavaScript**: We use Node.js to power our servers, and React to power our frontend apps. Almost all of the code you'll touch in this codebase will be JavaScript.
+- **Full-stack JavaScript**: Node.js is used to power the server, and React to power our frontend apps. Almost all of the code you'll touch in this codebase will be JavaScript.
 
-Here is a list of all the big technologies we use:
+Here is a list of all the big technologies used:
 
 #### Frontend
 
