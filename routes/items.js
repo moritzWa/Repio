@@ -13,7 +13,7 @@ router.get("/", auth, async (req, res) => {
   try {
     const items = await Item.find({ user: req.user.id })
       .sort({
-        date: -1
+        date: -1,
       })
       .populate("intervalRef")
 
@@ -29,14 +29,7 @@ router.get("/", auth, async (req, res) => {
 // @access    Private
 router.post(
   "/",
-  [
-    auth,
-    [
-      check("name", "Name is required")
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [auth, [check("name", "Name is required").not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -51,7 +44,7 @@ router.post(
         doneNum,
         category,
         user: req.user.id,
-        intervalRef
+        intervalRef,
       })
 
       const item = await newItem.save()
@@ -74,7 +67,6 @@ router.put("/increment/:id", auth, async (req, res) => {
   const { name, date, doneNum, intervalRef, category } = req.body
 
   const NewDoneNum = Number(doneNum) + 1
-  console.log(NewDoneNum)
 
   // Build item object
   const itemFields = {}

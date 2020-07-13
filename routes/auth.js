@@ -14,10 +14,8 @@ const User = require("../models/User")
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password")
-    console.log("succesfully responding", user ? "with user" : "without user")
     res.json(user)
   } catch (err) {
-    console.error(err.message)
     res.status(500).send("Server Error could not get user")
   }
 })
@@ -29,7 +27,7 @@ router.post(
   "/",
   [
     check("email", "Please include a valid email").isEmail(),
-    check("password", "Password is required").exists()
+    check("password", "Password is required").exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -54,8 +52,8 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       }
 
       jwt.sign(
@@ -65,10 +63,6 @@ router.post(
         (err, token) => {
           if (err) throw err
           res.json({ token })
-          console.log(
-            "succesfully responding",
-            token ? "with token" : "without token"
-          )
         }
       )
     } catch (err) {

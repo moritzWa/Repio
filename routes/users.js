@@ -15,14 +15,12 @@ const Item = require("../models/Item")
 router.post(
   "/",
   [
-    check("name", "Please add name")
-      .not()
-      .isEmpty(),
+    check("name", "Please add name").not().isEmpty(),
     check("email", "Please include a valid email").isEmail(),
     check(
       "password",
       "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 })
+    ).isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -47,28 +45,27 @@ router.post(
           { name: "Business" },
           { name: "Technology" },
           { name: "Psychology" },
-          { name: "History" }
-        ]
+          { name: "History" },
+        ],
       })
 
       const salt = await bcrypt.genSalt(10)
       user.password = await bcrypt.hash(password, salt)
 
       const newUser = await user.save()
-      //create default cat with user id
-      console.log(newUser)
 
+      //create default cat with user id
       const interval1 = new Interval({
         label: "Longterm",
         value: [7, 14, 24, 35, 49, 84, 140, 231, 371],
-        user: newUser._id
+        user: newUser._id,
       })
       const newInterval = await interval1.save()
 
       const interval2 = new Interval({
         label: "Shortterm",
         value: [3, 7, 14, 28, 42, 56, 98, 196],
-        user: newUser._id
+        user: newUser._id,
       })
       await interval2.save()
 
@@ -79,15 +76,14 @@ router.post(
         date: Date.now(),
         doneNum: 0,
         user: newUser._id,
-        intervalRef: newInterval._id
+        intervalRef: newInterval._id,
       })
-      console.log(item)
       await item.save()
 
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       }
 
       jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
@@ -112,7 +108,7 @@ router.put("/addcat/:userid", async (req, res) => {
       req.params.userid,
       { $push: { categories: req.body } },
       { new: true },
-      function(err, doc) {
+      function (err, doc) {
         if (err) {
           console.log(err)
         } else {
@@ -123,7 +119,6 @@ router.put("/addcat/:userid", async (req, res) => {
 
     res.json(req.body)
   } catch (err) {
-    console.log(err.message)
     res.status(500).send("Server Error in addcat")
   }
 })
@@ -139,7 +134,7 @@ router.put("/delcat/:userid", async (req, res) => {
       req.params.userid,
       { $pull: { categories: req.body } },
       { safe: true, upsert: true },
-      function(err, doc) {
+      function (err, doc) {
         if (err) {
           console.log(err)
         } else {

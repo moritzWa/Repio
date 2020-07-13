@@ -6,7 +6,6 @@ module.exports = function (req, res, next) {
 
   // Check if not token
   if (!token) {
-    console.log("no token")
     return res.status(401).json({ msg: "No token, authorization denied" })
   }
   //Decode Token and save user in request

@@ -46,7 +46,6 @@ const ItemState = (props) => {
   }
 
   const expandInfo = () => {
-    console.log("running expant with:", state.items)
     // Expand item Information
     if (state.items !== null && state.items !== undefined) {
       //Interval default info
@@ -147,7 +146,6 @@ const ItemState = (props) => {
         payload: res.data,
       })
     } catch (err) {
-      console.log(err.response)
       dispatch({
         type: CONTACT_ERROR,
         payload: err.response.msg,
@@ -180,7 +178,6 @@ const ItemState = (props) => {
 
   // Increment DoneNum
   const incrementDoneNum = async (item) => {
-    console.log("running incrementing in Item State", item)
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -263,11 +260,11 @@ const ItemState = (props) => {
       let AProp
       let BProp
       if (a[key].label !== undefined) {
-        console.log("labelsorting activated")
+        //labelsorting activated
         AProp = a[key].label
         BProp = b[key].label
       } else if (a[key].name !== undefined) {
-        console.log("categorysort activated")
+        //categorysort activated
         AProp = a[key].name
         BProp = b[key].name
       } else {
@@ -291,17 +288,12 @@ const ItemState = (props) => {
   const [isAsc, setDirectionToggler] = useState(true)
 
   const sort = (key) => {
-    //create direction variable
     let direction = isAsc ? "asc" : "desc"
-    //change sorting
     let newOrder = state.items.sort(compareValues(key, direction))
     //toggle diricton
     setDirectionToggler(!isAsc)
 
     dispatch({ type: SORT_ITEMS, payload: newOrder })
-
-    console.log(key, direction, newOrder)
-    //state was updated
   }
 
   //======================= Filter for ToReview Locic =========================//

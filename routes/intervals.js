@@ -24,14 +24,13 @@ router.get("/", auth, async (req, res) => {
 // @desc      Add new interval
 // @access    Private
 router.post("/", auth, async (req, res) => {
-  console.log("posting interval", req.user)
   try {
     const { label, value } = req.body
 
     const newInterval = new Interval({
       label,
       value,
-      user: req.user.id
+      user: req.user.id,
     })
     const interval = await newInterval.save()
     res.json(interval)

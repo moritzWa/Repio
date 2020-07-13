@@ -34,7 +34,6 @@ export default (state, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-      console.log("removing token again", action.payload)
       //localStorage.removeItem("token")
       //TODO investig
       return {
@@ -46,7 +45,6 @@ export default (state, action) => {
         error: action.payload,
       }
     case ADD_CATEGORY:
-      console.log("starting to add new category", action.payload)
       return {
         ...state,
         user: {
@@ -55,7 +53,6 @@ export default (state, action) => {
         },
       }
     case DELETE_CATEGORY:
-      console.log("startign to update categories array")
       return {
         ...state,
         user: {
@@ -66,7 +63,6 @@ export default (state, action) => {
         },
       }
     case CATEGORY_ERROR:
-      console.log("starting to delet categories obj")
       return {
         ...state,
         error: action.payload,
