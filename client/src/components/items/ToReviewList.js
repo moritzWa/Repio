@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 const ToReviewList = () => {
   const classes = useStyles()
   const itemContext = useContext(ItemContext)
-  const { items, sort, filteredItems, incrementDoneNum } = itemContext
+  const { items, sortItems, filteredItems, incrementDoneNum } = itemContext
 
   return (
     <>
@@ -51,19 +51,19 @@ const ToReviewList = () => {
                 <TableRow>
                   <TableCell
                     className={classes.headCell}
-                    onClick={() => sort("name")}
+                    onClick={() => sortItems("name")}
                   >
                     Name
                   </TableCell>
                   <TableCell
                     className={classes.headCell}
-                    onClick={() => sort("overDoDays")}
+                    onClick={() => sortItems("overDoDays")}
                   >
                     Overdo since
                   </TableCell>
                   <TableCell
                     className={classes.headCell}
-                    onClick={() => sort("category")}
+                    onClick={() => sortItems("category")}
                   >
                     Category
                   </TableCell>
@@ -90,22 +90,22 @@ const ToReviewList = () => {
                     </TableRow>
                   ))
                 ) : (
-                  <TableRow></TableRow>
-                )}
+                    <TableRow></TableRow>
+                  )}
               </TableBody>
             </Table>
           ) : (
-            <Typography className={classes.doneText} variant="h5">
-              No items left for today{" "}
-              <span role="img" aria-label="emoji">
-                😊
+              <Typography className={classes.doneText} variant="h5">
+                No items left for today{" "}
+                <span role="img" aria-label="emoji">
+                  😊
               </span>{" "}
-            </Typography>
-          )}
+              </Typography>
+            )}
         </Paper>
       ) : (
-        <Spinner />
-      )}
+          <Spinner />
+        )}
     </>
   )
 }

@@ -74,7 +74,7 @@ const AllList = props => {
   const {
     items,
     getItems,
-    sort,
+    sortItems,
     setCurrent,
     deleteItem,
     clearCurrent
@@ -118,31 +118,31 @@ const AllList = props => {
               <TableRow>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => sort("name")}
+                  onClick={() => sortItems("name")}
                 >
                   Name
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => sort("date")}
+                  onClick={() => sortItems("date")}
                 >
                   Created
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => sort("doneNum")}
+                  onClick={() => sortItems("doneNum")}
                 >
                   Reviews
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => sort("interval")}
+                  onClick={() => sortItems("interval")}
                 >
                   Interval
                 </TableCell>
                 <TableCell
                   className={classes.headCell}
-                  onClick={() => sort("category")}
+                  onClick={() => sortItems("category")}
                 >
                   Category
                 </TableCell>
@@ -205,14 +205,14 @@ const AllList = props => {
                   </TableRow>
                 ))
               ) : (
-                <Spinner />
-              )}
+                  <Spinner />
+                )}
             </TableBody>
           </Table>
         </Paper>
       ) : (
-        <Spinner />
-      )}
+          <Spinner />
+        )}
       <Dialog open={deleteDialogOpen} aria-labelledby="delete-dialog-title">
         <DialogTitle id="delete-dialog-title">Delete This Item?</DialogTitle>
         <DialogContent>

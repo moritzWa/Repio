@@ -130,7 +130,6 @@ const ItemState = (props) => {
 
   //======================= API CRUD =========================//
 
-  // Add Item
   const addItem = async (item) => {
     const config = {
       headers: {
@@ -153,7 +152,6 @@ const ItemState = (props) => {
     }
   }
 
-  // Delete Item
   const deleteItem = async (id) => {
     try {
       await axios.delete(`/api/items/${id}`)
@@ -170,13 +168,6 @@ const ItemState = (props) => {
     }
   }
 
-  //could shorten this
-  /* const setItemAsDone = item => {
-    item.doneNum = Number(itemInProcess.doneNum) + 1
-    itemInProcess.reps = createRepsData(item)
-  } */
-
-  // Increment DoneNum
   const incrementDoneNum = async (item) => {
     const config = {
       headers: {
@@ -202,7 +193,6 @@ const ItemState = (props) => {
     }
   }
 
-  // Update Item
   const updateItem = async (item) => {
     const config = {
       headers: {
@@ -224,34 +214,27 @@ const ItemState = (props) => {
     }
   }
 
-  // Clear Items
   const clearItems = () => {
     dispatch({ type: CLEAR_ITEMS })
   }
 
-  // Set Current Item
   const setCurrent = (item) => {
     dispatch({ type: SET_CURRENT_ITEM, payload: item })
   }
 
-  // Clear Current Item
   const clearCurrentItem = () => {
     dispatch({ type: CLEAR_CURRENT_ITEM })
   }
 
-  // Filter Items
   const filterItems = (text) => {
     dispatch({ type: FILTER_ITEMS, payload: text })
   }
 
-  // Clear Filter
   const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER })
   }
 
-  //=============================== Sorting Locic =================================//
 
-  //double logic could be shortened
   const compareValues = (sortingKey, order = "ascending") => {
     return function (a, b) {
       if (!a.hasOwnProperty(sortingKey) || !b.hasOwnProperty(sortingKey)) {
@@ -289,22 +272,20 @@ const ItemState = (props) => {
   /**
    * @param {string} "name" || "overDoDays" || "category"
    */
-  const sort = (sortingKey) => {
-    const [isAscending, setDirectionToggler] = useState(true)
+  const sortItems = (sortingKey) => {
+    const [isAscending, setIsAscending] = useState(true)
 
-    let direction = isAscending ? "ascending" : "descending"
-    let newOrder = state.items.sort(compareValues(sortingKey, direction))
+    let newOrder = state.items.sort(compareValues(sortingKey, isAscending ? "ascending" : "descending"))
 
-    setDirectionToggler(!isAscending)
+    setIsAscending(!isAscending)
 
     dispatch({ type: SORT_ITEMS, payload: newOrder })
   }
 
-  //======================= Filter for ToReview Locic =========================//
 
-  //finnd item that has overdo reps
+
   const filterOverDoItems = (items) => {
-    let filteredArray = []
+    let filteredItemsArray = []
     items.forEach((element) => {
       element.reps.forEach((rep) => {
         if (
@@ -316,7 +297,7 @@ const ItemState = (props) => {
         }
       })
     })
-    return filteredArray //returns items
+    return filteredItemsArray
   }
 
   if (state.items !== null && state.items !== undefined) {
@@ -341,7 +322,7 @@ const ItemState = (props) => {
         clearFilter,
         getItems,
         clearItems,
-        sort,
+        sortItems,
       }}
     >
       {props.children}
