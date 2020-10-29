@@ -236,32 +236,32 @@ const ItemState = (props) => {
 
 
   const compareValues = (sortingKey, order = "ascending") => {
-    return function (a, b) {
-      if (!a.hasOwnProperty(sortingKey) || !b.hasOwnProperty(sortingKey)) {
+    return (itemA, itemB) => {
+      if (!itemA.hasOwnProperty(sortingKey) || !itemB.hasOwnProperty(sortingKey)) {
         return 0
       }
       let AProp
       let BProp
-      if (a[sortingKey].label !== undefined) {
+      if (itemA[sortingKey].label !== undefined) {
         //labelsorting activated
-        AProp = a[sortingKey].label
-        BProp = b[sortingKey].label
-      } else if (a[sortingKey].name !== undefined) {
+        AProp = itemA[sortingKey].label
+        BProp = itemB[sortingKey].label
+      } else if (itemA[sortingKey].name !== undefined) {
         //categorysort activated
-        AProp = a[sortingKey].name
-        BProp = b[sortingKey].name
+        AProp = itemA[sortingKey].name
+        BProp = itemB[sortingKey].name
       } else {
-        AProp = a[sortingKey]
-        BProp = b[sortingKey]
+        AProp = itemA[sortingKey]
+        BProp = itemB[sortingKey]
       }
 
-      const varA = typeof AProp === "string" ? AProp.toUpperCase() : AProp
-      const varB = typeof BProp === "string" ? BProp.toUpperCase() : BProp
+      const APropUpperCase = typeof AProp === "string" ? AProp.toUpperCase() : AProp
+      const BPropUpperCase = typeof BProp === "string" ? BProp.toUpperCase() : BProp
 
       let comparison = 0
-      if (varA > varB) {
+      if (APropUpperCase > BPropUpperCase) {
         comparison = 1
-      } else if (varA < varB) {
+      } else if (APropUpperCase < BPropUpperCase) {
         comparison = -1
       }
       return order === "descending" ? comparison * -1 : comparison
