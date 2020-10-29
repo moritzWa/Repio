@@ -252,24 +252,24 @@ const ItemState = (props) => {
   //=============================== Sorting Locic =================================//
 
   //double logic could be shortened
-  const compareValues = (key, order = "asc") => {
+  const compareValues = (sortingKey, order = "ascending") => {
     return function (a, b) {
-      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+      if (!a.hasOwnProperty(sortingKey) || !b.hasOwnProperty(sortingKey)) {
         return 0
       }
       let AProp
       let BProp
-      if (a[key].label !== undefined) {
+      if (a[sortingKey].label !== undefined) {
         //labelsorting activated
-        AProp = a[key].label
-        BProp = b[key].label
-      } else if (a[key].name !== undefined) {
+        AProp = a[sortingKey].label
+        BProp = b[sortingKey].label
+      } else if (a[sortingKey].name !== undefined) {
         //categorysort activated
-        AProp = a[key].name
-        BProp = b[key].name
+        AProp = a[sortingKey].name
+        BProp = b[sortingKey].name
       } else {
-        AProp = a[key]
-        BProp = b[key]
+        AProp = a[sortingKey]
+        BProp = b[sortingKey]
       }
 
       const varA = typeof AProp === "string" ? AProp.toUpperCase() : AProp
@@ -281,17 +281,21 @@ const ItemState = (props) => {
       } else if (varA < varB) {
         comparison = -1
       }
-      return order === "desc" ? comparison * -1 : comparison
+      return order === "descending" ? comparison * -1 : comparison
     }
   }
 
-  const [isAsc, setDirectionToggler] = useState(true)
 
-  const sort = (key) => {
-    let direction = isAsc ? "asc" : "desc"
-    let newOrder = state.items.sort(compareValues(key, direction))
-    //toggle diricton
-    setDirectionToggler(!isAsc)
+  /**
+   * @param {string} "name" || "overDoDays" || "category"
+   */
+  const sort = (sortingKey) => {
+    const [isAscending, setDirectionToggler] = useState(true)
+
+    let direction = isAscending ? "ascending" : "descending"
+    let newOrder = state.items.sort(compareValues(sortingKey, direction))
+
+    setDirectionToggler(!isAscending)
 
     dispatch({ type: SORT_ITEMS, payload: newOrder })
   }
