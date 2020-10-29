@@ -1,35 +1,35 @@
 import {
-  GET_CONTACTS,
-  ADD_CONTACT,
-  DELETE_CONTACT,
-  SET_CURRENT,
-  CLEAR_CURRENT,
-  UPDATE_CONTACT,
-  FILTER_CONTACTS,
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  SET_CURRENT_ITEM,
+  CLEAR_CURRENT_ITEM,
+  UPDATE_ITEM,
+  FILTER_ITEMS,
   CLEAR_FILTER,
-  CONTACT_ERROR,
-  CLEAR_CONTACTS,
-  UPDATE_CONTACT_DONENUM,
+  ITEM_ERROR,
+  CLEAR_ITEMS,
+  UPDATE_ITEM_DONE_NUM,
   SORT_ITEMS
 } from "../types"
 
 export default (state, action) => {
   switch (action.type) {
-    case GET_CONTACTS:
+    case GET_ITEMS:
       return {
         ...state,
         items: action.payload,
         loading: false
       }
-    case ADD_CONTACT:
+    case ADD_ITEM:
       console.log("new item as res:", action.payload)
       return {
         ...state,
         items: [action.payload, ...state.items],
         loading: false
       }
-    case UPDATE_CONTACT:
-    case UPDATE_CONTACT_DONENUM:
+    case UPDATE_ITEM:
+    case UPDATE_ITEM_DONE_NUM:
       return {
         ...state,
         items: state.items.map(item =>
@@ -38,13 +38,13 @@ export default (state, action) => {
         loading: false
       }
 
-    case DELETE_CONTACT:
+    case DELETE_ITEM:
       return {
         ...state,
         items: state.items.filter(item => item._id !== action.payload),
         loading: false
       }
-    case CLEAR_CONTACTS:
+    case CLEAR_ITEMS:
       return {
         ...state,
         items: null,
@@ -52,18 +52,18 @@ export default (state, action) => {
         error: null,
         current: null
       }
-    case SET_CURRENT:
+    case SET_CURRENT_ITEM:
       return {
         ...state,
         current: action.payload
       }
-    case CLEAR_CURRENT:
+    case CLEAR_CURRENT_ITEM:
       return {
         ...state,
         current: null
       }
     //currently no sorting function
-    case FILTER_CONTACTS:
+    case FILTER_ITEMS:
       return {
         ...state,
         filtered: state.items.filter(item => {
@@ -82,7 +82,7 @@ export default (state, action) => {
         ...state,
         items: action.payload
       }
-    case CONTACT_ERROR:
+    case ITEM_ERROR:
       return {
         ...state,
         error: action.payload

@@ -3,24 +3,24 @@ import axios from "axios"
 import ItemContext from "./itemContext"
 import itemReducer from "./itemReducer"
 import {
-  GET_CONTACTS,
-  ADD_CONTACT,
-  DELETE_CONTACT,
-  SET_CURRENT,
-  CLEAR_CURRENT,
-  UPDATE_CONTACT,
-  FILTER_CONTACTS,
-  CLEAR_CONTACTS,
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  SET_CURRENT_ITEM,
+  CLEAR_CURRENT_ITEM,
+  UPDATE_ITEM,
+  FILTER_ITEMS,
+  CLEAR_ITEMS,
   CLEAR_FILTER,
-  CONTACT_ERROR,
-  UPDATE_CONTACT_DONENUM,
+  ITEM_ERROR,
+  UPDATE_ITEM_DONE_NUM,
   SORT_ITEMS,
 } from "../types"
 
 const ItemState = (props) => {
   const initialState = {
     items: null,
-    current: null,
+    currentItem: null,
     filtered: null,
     error: null,
     filteredItems: null,
@@ -34,12 +34,12 @@ const ItemState = (props) => {
       const res = await axios.get("/api/items")
 
       dispatch({
-        type: GET_CONTACTS,
+        type: GET_ITEMS,
         payload: res.data,
       })
     } catch (err) {
       dispatch({
-        type: CONTACT_ERROR,
+        type: ITEM_ERROR,
         payload: err.response.msg,
       })
     }
@@ -52,13 +52,13 @@ const ItemState = (props) => {
       state.items.map((i) =>
         i.interval === "Longterm"
           ? (i.interval = {
-              value: [1, 7, 14, 28, 56, 112, 224, 448],
-              label: "Longterm",
-            })
+            value: [1, 7, 14, 28, 56, 112, 224, 448],
+            label: "Longterm",
+          })
           : (i.interval = {
-              value: [1, 4, 7, 10, 14, 21, 28, 38],
-              label: "Shortterm",
-            })
+            value: [1, 4, 7, 10, 14, 21, 28, 38],
+            label: "Shortterm",
+          })
       )
 
       //Reps info
@@ -142,12 +142,12 @@ const ItemState = (props) => {
       const res = await axios.post("/api/items", item, config)
 
       dispatch({
-        type: ADD_CONTACT,
+        type: ADD_ITEM,
         payload: res.data,
       })
     } catch (err) {
       dispatch({
-        type: CONTACT_ERROR,
+        type: ITEM_ERROR,
         payload: err.response.msg,
       })
     }
@@ -159,12 +159,12 @@ const ItemState = (props) => {
       await axios.delete(`/api/items/${id}`)
 
       dispatch({
-        type: DELETE_CONTACT,
+        type: DELETE_ITEM,
         payload: id,
       })
     } catch (err) {
       dispatch({
-        type: CONTACT_ERROR,
+        type: ITEM_ERROR,
         payload: err.response.msg,
       })
     }
@@ -191,12 +191,12 @@ const ItemState = (props) => {
       )
 
       dispatch({
-        type: UPDATE_CONTACT_DONENUM,
+        type: UPDATE_ITEM_DONE_NUM,
         payload: res.data,
       })
     } catch (err) {
       dispatch({
-        type: CONTACT_ERROR,
+        type: ITEM_ERROR,
         payload: err.response.msg,
       })
     }
@@ -213,12 +213,12 @@ const ItemState = (props) => {
       const res = await axios.put(`/api/items/${item._id}`, item, config)
 
       dispatch({
-        type: UPDATE_CONTACT,
+        type: UPDATE_ITEM,
         payload: res.data,
       })
     } catch (err) {
       dispatch({
-        type: CONTACT_ERROR,
+        type: ITEM_ERROR,
         payload: err.response.msg,
       })
     }
@@ -226,22 +226,22 @@ const ItemState = (props) => {
 
   // Clear Items
   const clearItems = () => {
-    dispatch({ type: CLEAR_CONTACTS })
+    dispatch({ type: CLEAR_ITEMS })
   }
 
   // Set Current Item
   const setCurrent = (item) => {
-    dispatch({ type: SET_CURRENT, payload: item })
+    dispatch({ type: SET_CURRENT_ITEM, payload: item })
   }
 
   // Clear Current Item
-  const clearCurrent = () => {
-    dispatch({ type: CLEAR_CURRENT })
+  const clearCurrentItem = () => {
+    dispatch({ type: CLEAR_CURRENT_ITEM })
   }
 
   // Filter Items
   const filterItems = (text) => {
-    dispatch({ type: FILTER_CONTACTS, payload: text })
+    dispatch({ type: FILTER_ITEMS, payload: text })
   }
 
   // Clear Filter
@@ -323,14 +323,14 @@ const ItemState = (props) => {
     <ItemContext.Provider
       value={{
         items: state.items,
-        current: state.current,
+        currentItem: state.currentItem,
         filtered: state.filtered,
         error: state.error,
         filteredItems: state.filteredItems,
         addItem,
         deleteItem,
         setCurrent,
-        clearCurrent,
+        clearCurrentItem,
         updateItem,
         incrementDoneNum,
         filterItems,
