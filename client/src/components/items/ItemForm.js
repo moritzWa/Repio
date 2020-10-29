@@ -9,7 +9,7 @@ import SaveIcon from "@material-ui/icons/Save"
 
 const ItemForm = () => {
   const itemContext = useContext(ItemContext)
-  const { items, addItem, updateItem, clearCurrent, current } = itemContext
+  const { items, addItem, updateItem, clearCurrentItem, currentItem } = itemContext
 
   const authContext = useContext(AuthContext)
   const { user } = authContext
@@ -17,38 +17,36 @@ const ItemForm = () => {
   const intervalContext = useContext(IntervalContext)
   const { intervals, getIntervals } = intervalContext
 
-  //select last used inv through comparing
-
-  const lastUsedItvItemCtx =
+  const recentItemInterval =
     items !== null && items !== [] ? items[items.length - 1].intervalRef : ""
 
-  const lastUsedItvIntervalCtx =
+  const recentContextItemInterval =
     intervals !== null
-      ? intervals.find((itv) => itv.label === lastUsedItvItemCtx.label)
+      ? intervals.find((itv) => itv.label === recentItemInterval.label)
       : ""
 
-  const empty = {
+  const emptyItem = {
     name: "",
     date: new Date(),
     doneNum: 0,
-    intervalRef: intervals !== null ? lastUsedItvIntervalCtx : "",
+    intervalRef: intervals !== null ? recentContextItemInterval : "",
     category: items !== null ? items[0].category : "",
   }
 
   useEffect(() => {
-    if (current !== null) {
-      current.intervalRef =
+    if (currentItem !== null) {
+      currentItem.intervalRef =
         intervals !== null
-          ? intervals.find((i) => i.label === current.intervalRef.label)
+          ? intervals.find((i) => i.label === currentItem.intervalRef.label)
           : {}
-      setItem(current)
+      setItem(currentItem)
     } else {
-      setItem(empty)
+      setItem(emptyItem)
     }
     // eslint-disable-next-line
-  }, [itemContext, current])
+  }, [itemContext, currentItem])
 
-  const [item, setItem] = useState(empty)
+  const [item, setItem] = useState(emptyItem)
 
   const { name, date, doneNum, intervalRef, category } = item
 
@@ -56,7 +54,7 @@ const ItemForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    if (current === null) {
+    if (currentItem === null) {
       addItem(item)
     } else {
       updateItem(item)
@@ -65,7 +63,7 @@ const ItemForm = () => {
   }
 
   const clearAll = () => {
-    clearCurrent()
+    clearCurrentItem()
   }
 
   const formatDate = (date) => {
@@ -180,8 +178,8 @@ const ItemForm = () => {
                     </MenuItem>
                   ))
                 ) : (
-                  <p>please reload the page</p>
-                )}
+                    <p>please reload the page</p>
+                  )}
               </TextField>
               <TextField
                 name="category"
@@ -198,8 +196,8 @@ const ItemForm = () => {
                     </MenuItem>
                   ))
                 ) : (
-                  <p>loading</p>
-                )}
+                    <p>loading</p>
+                  )}
               </TextField>
 
               <Button
@@ -209,9 +207,9 @@ const ItemForm = () => {
                 className={classes.submitButton}
                 startIcon={<SaveIcon />}
               >
-                {current ? "Update Item" : "Add Item"}
+                {currentItem ? "Update Item" : "Add Item"}
               </Button>
-              {current && (
+              {currentItem && (
                 <Button
                   variant="contained"
                   className={classes.button}
