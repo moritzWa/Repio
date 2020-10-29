@@ -27,23 +27,9 @@ const ItemState = (props) => {
   }
 
   const [state, dispatch] = useReducer(itemReducer, initialState)
+  const [isAscending, setIsAscending] = useState(true)
 
-  // Get Items
-  const getItems = async () => {
-    try {
-      const res = await axios.get("/api/items")
 
-      dispatch({
-        type: GET_ITEMS,
-        payload: res.data,
-      })
-    } catch (err) {
-      dispatch({
-        type: ITEM_ERROR,
-        payload: err.response.msg,
-      })
-    }
-  }
 
   const expandInfo = () => {
     // Expand item Information
@@ -61,9 +47,6 @@ const ItemState = (props) => {
           })
       )
 
-      //Reps info
-
-      //setup structure logic
       const createRepsStructure = (usedInterval) => {
         let repsArrayStructure = []
 
@@ -129,6 +112,23 @@ const ItemState = (props) => {
   }
 
   //======================= API CRUD =========================//
+
+  // Get Items
+  const getItems = async () => {
+    try {
+      const res = await axios.get("/api/items")
+
+      dispatch({
+        type: GET_ITEMS,
+        payload: res.data,
+      })
+    } catch (err) {
+      dispatch({
+        type: ITEM_ERROR,
+        payload: err.response.msg,
+      })
+    }
+  }
 
   const addItem = async (item) => {
     const config = {
@@ -273,7 +273,6 @@ const ItemState = (props) => {
    * @param {string} "name" || "overDoDays" || "category"
    */
   const sortItems = (sortingKey) => {
-    const [isAscending, setIsAscending] = useState(true)
 
     let newOrder = state.items.sort(compareValues(sortingKey, isAscending ? "ascending" : "descending"))
 
@@ -291,9 +290,9 @@ const ItemState = (props) => {
         if (
           !rep.isDone &&
           rep.date < new Date() &&
-          !filteredArray.includes(element)
+          !filteredItemsArray.includes(element)
         ) {
-          filteredArray.push(element)
+          filteredItemsArray.push(element)
         }
       })
     })
